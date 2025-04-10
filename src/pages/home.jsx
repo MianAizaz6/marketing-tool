@@ -1,27 +1,15 @@
 import React from 'react';
 import { Globe, Zap, Share2, BarChart2 } from 'lucide-react';
+import { cover, logo1, logo2, logo3 } from '../static-img-url';
+import FeaturesSection from '../components/home/features-section';
+import WhyChooseAI from '../components/home/why-choose-us';
+import AdditionalFeatures from '../components/home/social-media';
+import staticData from '../static-data';
 
 const LandingPage = () => {
-  const features = [
-    {
-      icon: <Globe className="w-5 h-5" />, title: "Automated Post Creation",
-      desc: "Write an amazing description in this dedicated card section. Each word counts."
-    },
-    {
-      icon: <Zap className="w-5 h-5" />, title: "SEO Optimization",
-      desc: "Write an amazing description in this dedicated card section. Each word counts."
-    },
-    {
-      icon: <Share2 className="w-5 h-5" />, title: "AI Writing for Ad’s",
-      desc: "Write an amazing description in this dedicated card section. Each word counts."
-    },
-    {
-      icon: <BarChart2 className="w-5 h-5" />, title: "Comparison Report",
-      desc: "Write an amazing description in this dedicated card section. Each word counts."
-    }
-  ];
 
-  const logos = ["Logospum Academy", "LogoIpsum", "LOGOIPSUM", "logo ipsum", "logoipsum"];
+
+  const logos = [logo1, logo2, logo3, logo1, logo3];
   const networks = ["Facebook", "Instagram", "X (Twitter)", "Tiktok", "Messenger", "Whatsapp", "Telegram", "Youtube"];
 
   return (
@@ -41,9 +29,18 @@ const LandingPage = () => {
 
       <main>
         {/* Hero */}
-        <section className="text-center px-4 py-16 bg-gradient-to-b from-white to-[#FAFAFA]">
-          <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-            BOOST <span role="img" aria-label="rocket">🚀</span> YOUR BRAND <br />
+        <section
+          className="text-center px-4 py-20 bg-gradient-to-b from-white to-gray-100" // light gray fallback
+          style={{
+            backgroundImage: `url(${cover})`,
+            backgroundSize: 'auto',      // or 'contain' based on what you want
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundColor: '#FAFAFA'    // fallback color for side gaps
+          }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+            <span className='text-[#00C940]'>BOOST</span> <span role="img" aria-label="rocket">🚀</span> YOUR BRAND <br />
             WITH SMARTER <br />
             SOCIAL MEDIA MANAGEMENT
           </h2>
@@ -57,72 +54,34 @@ const LandingPage = () => {
         </section>
 
         {/* Intuitive Tool */}
-        <section className="px-4 py-16 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold">
-            INTUITIVE <span className="text-[#FF4A4A]">AI TOOL</span> FOR GROWING YOUR <span className="text-[#FF4A4A] italic">BUSINESS</span>
-          </h2>
-          <div className="grid md:grid-cols-3 gap-6 mt-10 max-w-6xl mx-auto">
-            {["User Registration & Website Submission", "Website Audit & AI-Based Report", "Competitor Analysis & Benchmarking", "AI-Generated Social Media & Ad Content", "Continuous AI-Driven Marketing Optimization"].map((text, idx) => (
-              <div key={idx} className="bg-white shadow p-5 rounded-lg border text-left">
-                <div className="text-[#FF4A4A] font-bold text-xl mb-2">0{idx + 1}</div>
-                <p className="text-sm text-gray-700">{text}</p>
+        <FeaturesSection />
+
+        {/* Why Choose */}
+        <WhyChooseAI />
+
+        {/* Additional Features */}
+        <AdditionalFeatures />
+
+        {/* Logo Grid */}
+        <section className="bg-gray-50 py-8 px-4">
+          <div className="flex flex-wrap items-center justify-center gap-8">
+            {logos.map((logo, i) => (
+              <div key={i} className="text-gray-500 font-semibold text-sm">
+                <img src={logo} alt="" />
               </div>
             ))}
           </div>
         </section>
 
-        {/* Why Choose */}
-        <section className="bg-[#1D1D1F] text-white py-16 px-4">
-          <h2 className="text-center text-2xl font-semibold mb-10">WHY CHOOSE OUR AI PRODUCT?</h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <div className="space-y-6">
-              {["INSTANT TREND DETECTION", "AUTOMATED CUSTOMER INTERACTION", "REAL-TIME PERFORMANCE TRACKING"].map((title, idx) => (
-                <div key={idx} className="border-l-4 pl-4 border-[#FF4A4A]">
-                  <h3 className="font-semibold text-lg">{title}</h3>
-                  <p className="text-sm text-gray-300">AI-powered insights to help track trends, automate interactions, and measure results.</p>
-                </div>
-              ))}
-            </div>
-            <img src="https://via.placeholder.com/400x300" alt="AI Dashboard" className="w-full max-w-md mx-auto" loading="lazy" />
-          </div>
-        </section>
-
-        {/* Additional Features */}
-        <section className="py-20 px-4 max-w-6xl mx-auto">
-          <h2 className="text-xl md:text-2xl font-semibold mb-10 text-center md:text-left">
-            SEAMLESS SOCIAL MEDIA MANAGEMENT FOR SMARTER GROWTH
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-6">
-            {features.map((f, i) => (
-              <article key={i} className="p-6 border rounded-lg text-left shadow-sm">
-                <div className="flex items-center gap-2 mb-2 text-sm">
-                  <div className="w-8 h-8 bg-gray-100 flex items-center justify-center rounded">{f.icon}</div>
-                  <strong>{f.title}</strong>
-                </div>
-                <p className="text-xs text-gray-500">{f.desc}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Logo Grid */}
-        <section className="bg-gray-50 py-10 px-4">
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {logos.map((logo, i) => (
-              <div key={i} className="text-gray-500 font-semibold text-sm">{logo}</div>
-            ))}
-          </div>
-        </section>
-
         {/* Social Networks */}
-        <section className="py-16 px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">ALL YOUR SOCIAL MEDIA NETWORKS IN ONE TAB</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {networks.map((name, i) => (
-              <article key={i} className="bg-white p-6 rounded-lg shadow border text-left">
-                <img src="https://via.placeholder.com/40" alt={`${name} icon`} className="w-10 h-10 mb-4" loading="lazy" />
-                <h3 className="font-semibold text-lg mb-1">{name}</h3>
-                <p className="text-sm text-gray-600">Get more engagement and build your {name} following.</p>
+        <section className="py-16 px-4 text-center bg-gray-100">
+          <h2 className="text-2xl md:text-3xl font-semibold mb-8">ALL YOUR SOCIAL MEDIA NETWORKS IN ONE TAB</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+            {staticData.socialNetworks.map((item, i) => (
+              <article key={i} className="bg-white p-6 rounded-lg shadow text-left">
+                <img src={item.icon} alt={`${item.name} icon`} className="w-10 h-10 mb-4" loading="lazy" />
+                <h3 className="font-semibold text-lg mb-1">{item.name}</h3>
+                <p className="text-sm text-gray-600">{item.description}</p>
               </article>
             ))}
           </div>

@@ -1,0 +1,17 @@
+export { default as cover } from './assets/images/here-bg.png';
+export { default as whyChooseImg } from './assets/images/why-choose-us.png';
+export { default as logo1 } from './assets/images/logo.png';
+export { default as logo2 } from './assets/images/logo-1.png';
+export { default as logo3 } from './assets/images/logo-ipsum.png';
+export { default as postCreation } from './assets/images/svgs/post-creation.svg';
+export { default as seoOptimization } from './assets/images/svgs/seo-optimization.svg';
+export { default as aiWritting } from './assets/images/svgs/ai-writing.svg';
+export { default as comparisonReport } from './assets/images/svgs/comparison-report.svg';
+export { default as facebook } from './assets/images/svgs/fb.svg';
+export { default as insta } from './assets/images/svgs/insta.svg';
+export { default as twitter } from './assets/images/svgs/twitter.svg';
+export { default as tiktok } from './assets/images/svgs/tiktok.svg';
+export { default as messenger } from './assets/images/svgs/messenger.svg';
+export { default as whatsap } from './assets/images/svgs/wp.svg';
+export { default as telegram } from './assets/images/svgs/telegram.svg';
+export { default as youtube } from './assets/images/svgs/youtube.svg';
