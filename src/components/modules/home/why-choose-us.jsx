@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckSquare } from 'lucide-react';
-import { whyChooseImg } from '../../static-img-url';
+import { whyChooseImg } from '../../../static-img-url';
 
 const features = [
   {

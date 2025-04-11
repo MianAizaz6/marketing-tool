@@ -1,10 +1,11 @@
 import React from 'react';
 import { Globe, Zap, Share2, BarChart2 } from 'lucide-react';
 import { cover, logo1, logo2, logo3 } from '../static-img-url';
-import FeaturesSection from '../components/home/features-section';
-import WhyChooseAI from '../components/home/why-choose-us';
-import AdditionalFeatures from '../components/home/social-media';
+import FeaturesSection from '../components/modules/home/features-section';
+import WhyChooseAI from '../components/modules/home/why-choose-us';
+import AdditionalFeatures from '../components/modules/home/social-media';
 import staticData from '../static-data';
+import Footer from '../components/ui-components/footer';
 
 const LandingPage = () => {
 
@@ -90,7 +91,7 @@ const LandingPage = () => {
         {/* Call to Action */}
         <section className="bg-[#0C0F1F] py-20 px-4 text-white text-center">
           <h2 className="text-2xl md:text-3xl font-semibold mb-3">
-            TRY OUR <span className="text-orange-500">AI SOFTWARE</span> FOR <span className="text-orange-500">FREE</span> AND SEE YOUR BUSINESS GROW!
+            TRY OUR <span className="text-orange-500">AI SOFTWARE</span> <br /> FOR <span className="text-orange-500">FREE</span> AND SEE YOUR BUSINESS GROW!
           </h2>
           <p className="max-w-xl mx-auto mb-6 text-sm md:text-base text-gray-300">
             Experience the power of automation, smart analytics, and AI-driven insights. Sign up for a free trial today!
@@ -102,29 +103,7 @@ const LandingPage = () => {
         </section>
       </main>
 
-      <footer className="bg-[#0C0F1F] py-12 px-6 text-gray-400">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          <div className="lg:col-span-2">
-            <img src="https://via.placeholder.com/100x40" alt="Logo" className="mb-4" />
-            <p className="text-sm">
-              AI-powered platform for social media automation, competitor benchmarking, and smart content strategies.
-            </p>
-          </div>
-          {["Product", "Company", "Resources", "Social", "Legal"].map((section, i) => (
-            <div key={i}>
-              <h4 className="font-semibold text-white mb-2">{section}</h4>
-              <ul className="text-sm space-y-1">
-                {['Overview', 'Features', 'Pricing', 'Support', 'Contact'].map((item, j) => (
-                  <li key={j}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 text-center text-xs text-gray-500">
-          © 2027 Untitled UI. All rights reserved.
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

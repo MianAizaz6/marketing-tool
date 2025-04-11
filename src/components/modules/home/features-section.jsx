@@ -1,5 +1,5 @@
 import React from 'react';
-import staticData from '../../static-data';
+import staticData from '../../../static-data';
 
 const FeaturesSection = () => {
   return (

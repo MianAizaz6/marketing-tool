@@ -1,6 +1,6 @@
 import React from 'react';
 import { LucideRocket, LucideBarChart2, LucideZap, LucideShare2 } from 'lucide-react';
-import { aiWritting, comparisonReport, postCreation, seoOptimization } from '../../static-img-url';
+import { aiWritting, comparisonReport, postCreation, seoOptimization } from '../../../static-img-url';
 
 const cards = [
   {
