@@ -1,4 +1,3 @@
-import React from 'react';
 import staticData from '../../../static-data';
 
 const FeaturesSection = () => {
@@ -11,7 +10,7 @@ const FeaturesSection = () => {
       </h2>
 
       <div className="grid md:grid-cols-2 gap-4">
-        {staticData.featuresData.map((item) => (
+        {staticData.featuresData.map(item => (
           <div
             key={item.id}
             className={`flex items-start gap-4 border-[1px] border-[#F8F8F8] p-6 bg-white rounded-xl shadow text-left

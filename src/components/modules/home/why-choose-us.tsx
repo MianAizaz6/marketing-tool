@@ -6,18 +6,18 @@ const features = [
   {
     title: 'INSTANT TREND DETECTION',
     description:
-      'AI continuously scans social media and industry trends in real time, helping you create relevant, high-impact content that resonates with your audience and keeps you ahead of the competition.'
+      'AI continuously scans social media and industry trends in real time, helping you create relevant, high-impact content that resonates with your audience and keeps you ahead of the competition.',
   },
   {
     title: 'AUTOMATED CUSTOMER INTERACTION',
     description:
-      'AI-powered chatbots and smart response systems engage with customers instantly, answering queries, resolving issues, and personalizing interactions—boosting customer satisfaction and brand loyalty.'
+      'AI-powered chatbots and smart response systems engage with customers instantly, answering queries, resolving issues, and personalizing interactions—boosting customer satisfaction and brand loyalty.',
   },
   {
     title: 'REAL-TIME PERFORMANCE TRACKING',
     description:
-      'Get live insights into your campaigns with AI-driven analytics. Track engagement, measure ROI, and receive intelligent recommendations to refine your strategy and maximize results instantly.'
-  }
+      'Get live insights into your campaigns with AI-driven analytics. Track engagement, measure ROI, and receive intelligent recommendations to refine your strategy and maximize results instantly.',
+  },
 ];
 
 const WhyChooseAI = () => {
@@ -39,12 +39,8 @@ const WhyChooseAI = () => {
                   <CheckSquare className="text-black w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base md:text-[16px] mb-1">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-gray-300 leading-relaxed">
-                    {feature.description}
-                  </p>
+                  <h3 className="font-bold text-base md:text-[16px] mb-1">{feature.title}</h3>
+                  <p className="text-sm text-gray-300 leading-relaxed">{feature.description}</p>
                 </div>
               </div>
             ))}
