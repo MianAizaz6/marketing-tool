@@ -1,32 +1,20 @@
-import React from 'react';
 import { cover, logo1, logo2, logo3 } from '../static-img-url';
 import FeaturesSection from '../components/modules/home/features-section';
 import WhyChooseAI from '../components/modules/home/why-choose-us';
 import AdditionalFeatures from '../components/modules/home/social-media';
 import staticData from '../static-data';
 import Footer from '../components/ui-components/footer';
+import Header from '../components/ui-components/header';
+import CTASection from '../components/modules/home/cta-section';
+
 
 const LandingPage = () => {
+
   const logos = [logo1, logo2, logo3, logo1, logo3];
 
   return (
     <div className="font-sans w-full text-[#1D1D1F]">
-      <header className="flex justify-between items-center px-6 py-4 shadow-md">
-        <h1 className="text-2xl font-bold text-[#FF4A4A]">IPSUM</h1>
-        <nav className="hidden md:flex gap-6 text-sm">
-          {['Features', 'Pricing', 'Integrations', 'Our Tool', 'Resources'].map((link, idx) => (
-            <a key={idx} href="#" className="hover:underline">
-              {link}
-            </a>
-          ))}
-        </nav>
-        <div className="flex gap-3">
-          <button className="text-sm border px-4 py-2 rounded">Log in</button>
-          <button className="text-sm bg-[#1D1D1F] text-white px-4 py-2 rounded">
-            Try our product
-          </button>
-        </div>
-      </header>
+      <Header />
 
       <main>
         {/* Hero */}
@@ -100,22 +88,7 @@ const LandingPage = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="bg-[#0C0F1F] py-20 px-4 text-white text-center">
-          <h2 className="text-2xl md:text-3xl font-semibold mb-3">
-            TRY OUR <span className="text-orange-500">AI SOFTWARE</span> <br /> FOR{' '}
-            <span className="text-orange-500">FREE</span> AND SEE YOUR BUSINESS GROW!
-          </h2>
-          <p className="max-w-xl mx-auto mb-6 text-sm md:text-base text-gray-300">
-            Experience the power of automation, smart analytics, and AI-driven insights. Sign up for
-            a free trial today!
-          </p>
-          <div className="flex justify-center gap-4 flex-wrap">
-            <button className="bg-[#FA503E] text-white px-6 py-2 rounded shadow">
-              Try our product
-            </button>
-            <button className="border border-white px-6 py-2 rounded">Learn more</button>
-          </div>
-        </section>
+        <CTASection />
       </main>
 
       <Footer />

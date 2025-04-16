@@ -20,4 +20,8 @@ export { default as footerInsta } from './assets/images/svgs/footer-insta.svg';
 export { default as footerX } from './assets/images/svgs/footer-x.svg';
 export { default as footerTiktok } from './assets/images/svgs/footer-tiktok.svg';
 export { default as footerYT } from './assets/images/svgs/footer-yt.svg';
+export { default as tickIcon } from './assets/images/svgs/check-icon.svg';
+export { default as plusIcon } from './assets/images/svgs/plus-btn.svg';
+export { default as closeIcon } from './assets/images/svgs/close-icon.svg';
 export { default as authBg } from './assets/images/auth-bg.png';
+

@@ -23,6 +23,12 @@ export interface SocialNetwork {
   icon: string; // or maybe `ReactNode` or `StaticImageData` depending on how icons are handled
 }
 
+export interface navItems {
+  id: number,
+  label: string,
+  link: string,
+}
+
 const staticData = {
   featuresData: [
     {
@@ -107,6 +113,14 @@ const staticData = {
       icon: youtube,
     },
   ],
+
+  navItems: [
+    { id: 1, label: 'Features', link: '/' },
+    { id: 2, label: 'Pricing', link: '/pricing' },
+    { id: 3, label: 'Integrations', link: '/integrations' },
+    { id: 4, label: 'Our Tools', link: '/our-tools' },
+    { id: 5, label: 'Resources', link: '/resources' },
+  ]
 };
 
 export default staticData;
