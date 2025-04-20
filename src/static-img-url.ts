@@ -23,5 +23,8 @@ export { default as footerYT } from './assets/images/svgs/footer-yt.svg';
 export { default as tickIcon } from './assets/images/svgs/check-icon.svg';
 export { default as plusIcon } from './assets/images/svgs/plus-btn.svg';
 export { default as closeIcon } from './assets/images/svgs/close-icon.svg';
+export { default as paypalIcon } from './assets/images/svgs/paypal.svg';
+export { default as paymentProcessIcon } from './assets/images/svgs/payment-process.svg';
+export { default as successIcon } from './assets/images/svgs/success-icon.svg';
 export { default as authBg } from './assets/images/auth-bg.png';
 

@@ -119,7 +119,7 @@ const staticData = {
     { id: 2, label: 'Pricing', link: '/pricing' },
     { id: 3, label: 'Integrations', link: '/integrations' },
     { id: 4, label: 'Our Tools', link: '/our-tools' },
-    { id: 5, label: 'Resources', link: '/resources' },
+    { id: 5, label: 'Resources', link: '/payment' },
   ]
 };
 
