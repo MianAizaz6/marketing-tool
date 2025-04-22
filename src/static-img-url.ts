@@ -27,4 +27,4 @@ export { default as paypalIcon } from './assets/images/svgs/paypal.svg';
 export { default as paymentProcessIcon } from './assets/images/svgs/payment-process.svg';
 export { default as successIcon } from './assets/images/svgs/success-icon.svg';
 export { default as authBg } from './assets/images/auth-bg.png';
-
+export { default as googleImage } from './assets/images/google-logo.png';

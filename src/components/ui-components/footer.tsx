@@ -1,10 +1,4 @@
-import {
-  footerFB,
-  footerInsta,
-  footerTiktok,
-  footerX,
-  footerYT,
-} from '../../static-img-url';
+import { footerFB, footerInsta, footerTiktok, footerX, footerYT } from '../../static-img-url';
 // import { FaTiktok } from 'react-icons/fa';
 // import { RxCross2 } from 'react-icons/rx';
 
