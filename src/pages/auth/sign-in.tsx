@@ -10,9 +10,9 @@ import { useMutation } from '@tanstack/react-query';
 import { signInUser } from '../../apis/auth';
 import { handleApiError } from '../../utils/handleApiError';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import { handleGoogleLogin } from '../../utils/handleGoogleLogin';
 import GoogleAuthBtn from '../../components/auth/google-auth-btn';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const {
@@ -68,12 +68,12 @@ const SignIn = () => {
             {...register('password')}
             error={errors.password?.message}
           />
-          <p className="text-[#FF4400] text-[14px] leading-[20px] text-right font-medium cursor-pointer">
+          <Link to={'/forget-password'} className="text-[#FF4400] text-[14px] leading-[20px] text-right font-medium cursor-pointer">
             Forgot password?
-          </p>
+          </Link>
           <AuthButton type={'submit'} text="Log in" disabled={isSubmitting} />
           <p className="text-[#0F172A] text-[14px] leading-[20px] text-center font-medium cursor-pointer">
-            Don’t have an account? <span className="text-[#FF4400]">Sign up here</span>
+            Don’t have an account? <Link to="/sign-up" className="text-[#FF4400]">Sign up here</Link>
           </p>
         </AuthFormWrapper>
       </div>

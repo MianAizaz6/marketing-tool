@@ -6,7 +6,7 @@ import AuthHeading from '../../components/auth/auth-heading';
 import { authBg } from '../../static-img-url';
 import OtpInputField from '../../components/auth/otp-input';
 
-const ResetPassword = () => {
+const ForgetPassword = () => {
   const [validEmail, setValidEmail] = useState<boolean>(false);
   const [validOtp, setValidOtp] = useState<boolean>(false);
 
@@ -52,7 +52,7 @@ const ResetPassword = () => {
                     A 6-digit code have been sent to your email lorenipsum@gmail.com. It might take
                     a minute to arrive. Please enter the code below to verify.
                   </p>
-                  <OtpInputField value="" onChange={() => {}} />
+                  <OtpInputField value="" onChange={() => { }} />
                   <AuthButton type={'submit'} text="Verify" disabled={true} />
                   <p className="text-[#0F172A] text-[14px] leading-[20px] text-center font-medium cursor-pointer">
                     Didn’t get the code? <span className="text-[#FF4400]">Resend</span>
@@ -82,4 +82,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ForgetPassword;

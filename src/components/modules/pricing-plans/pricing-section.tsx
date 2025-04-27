@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface PlanFeature {
   label: string;
@@ -107,12 +108,14 @@ const PricingSection: React.FC = () => {
               ${isYearly ? plan.priceYearly : plan.priceMonthly}
             </div>
             <p className="text-sm mb-4">per month</p>
-            <button
-              className={`w-full py-2 rounded-md font-medium ${plan.featured ? 'bg-orange-500 hover:bg-orange-600 text-white' : 'bg-white text-black border'
-                }`}
-            >
-              {plan.cta}
-            </button>
+            <Link to={'/payment'}>
+              <button
+                className={`w-full py-2 cursor-pointer rounded-md font-medium ${plan.featured ? 'bg-orange-500 hover:bg-orange-600 text-white' : 'bg-white text-black border'
+                  }`}
+              >
+                {plan.cta}
+              </button>
+            </Link>
 
             <ul className="mt-6 space-y-2 text-sm text-left">
               {plan.features.map((feature, index) => (

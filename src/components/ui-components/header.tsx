@@ -14,7 +14,7 @@ const Header = () => {
         })}
       </nav>
       <div className="flex gap-3">
-        <button className="text-sm border px-4 py-2 rounded">Log in</button>
+        <Link to={'/sign-in'} className="text-sm border px-4 py-2 rounded">Log in</Link>
         <button className="text-sm bg-[#1D1D1F] text-white px-4 py-2 rounded">
           Try our product
         </button>

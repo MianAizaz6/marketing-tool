@@ -210,7 +210,7 @@ const PaymentFormPage: React.FC = () => {
                 <span>Total Payment</span>
                 <span>${getTotalPrice().toFixed(2)}</span>
               </div>
-              <button onClick={() => toggleSuccessPopup()} className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-md">
+              <button onClick={() => toggleSuccessPopup()} className="w-full mt-4 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-md">
                 Confirm and Pay
               </button>
             </div>

@@ -175,7 +175,9 @@ const staticData = {
     { id: 3, label: 'Integrations', link: '/integrations' },
     { id: 4, label: 'Our Tools', link: '/our-tools' },
     { id: 5, label: 'Resources', link: '/payment' },
-  ],
+    { id: 5, label: 'About', link: '/about-us' },
+    { id: 5, label: 'Contact', link: '/contact-us' },
+  ]
 };
 
 export default staticData;
