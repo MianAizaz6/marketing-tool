@@ -28,3 +28,14 @@ export { default as paymentProcessIcon } from './assets/images/svgs/payment-proc
 export { default as successIcon } from './assets/images/svgs/success-icon.svg';
 export { default as authBg } from './assets/images/auth-bg.png';
 export { default as googleImage } from './assets/images/google-logo.png';
+export { default as videoIcon } from './assets/images/video-icon.png';
+export { default as callIcon } from './assets/images/call-ringing-icon.png';
+export { default as contactUsHeroImage } from './assets/images/contact-us-hero-image.png';
+export { default as emailIcon } from './assets/images/email-icon.png';
+export { default as saleIcon } from './assets/images/messaging-sales-icon.png';
+export { default as growSection } from './assets/images/contact-us-grow-section.png';
+export { default as sliderLogo1 } from './assets/images/logo--ipsum-1.png';
+export { default as sliderLogo2 } from './assets/images/logo--ipsum-2.png';
+export { default as sliderLogo3 } from './assets/images/logo--ipsum-3.png';
+export { default as sliderLogo4 } from './assets/images/logo--ipsum-4.png';
+export { default as sliderLogo5 } from './assets/images/logo--ipsum-5.png';

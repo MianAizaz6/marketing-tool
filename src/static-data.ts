@@ -1,7 +1,15 @@
 import {
+  callIcon,
+  emailIcon,
   facebook,
   insta,
   messenger,
+  saleIcon,
+  sliderLogo1,
+  sliderLogo2,
+  sliderLogo3,
+  sliderLogo4,
+  sliderLogo5,
   telegram,
   tiktok,
   twitter,
@@ -24,10 +32,57 @@ export interface SocialNetwork {
 }
 
 export interface navItems {
-  id: number,
-  label: string,
-  link: string,
+  id: number;
+  label: string;
+  link: string;
 }
+
+export interface contactLinks {
+  icon: string;
+  label: string;
+  link: string;
+}
+
+export type IconBoxProps = {
+  icon: string;
+  heading: string;
+  paragraph: string;
+  callToAction: string;
+};
+
+export const contactUsData = [
+  {
+    icon: emailIcon,
+    heading: 'Email',
+    paragraph: 'Our friendly team is here to help.',
+    callToAction: 'support@untitledmass.com',
+  },
+  {
+    icon: callIcon,
+    heading: 'Phone',
+    paragraph: 'Mon-Fri from 8am to 5pm.',
+    callToAction: '+1 (555) 000-0000',
+  },
+  {
+    icon: saleIcon,
+    heading: 'Sales',
+    paragraph: 'Questions or queries? Get in touch!',
+    callToAction: 'support@untitledmass.com',
+  },
+];
+
+export const logosArray = [
+  sliderLogo1,
+  sliderLogo2,
+  sliderLogo3,
+  sliderLogo4,
+  sliderLogo5,
+  sliderLogo1,
+  sliderLogo2,
+  sliderLogo3,
+  sliderLogo4,
+  sliderLogo5,
+];
 
 const staticData = {
   featuresData: [
@@ -120,7 +175,7 @@ const staticData = {
     { id: 3, label: 'Integrations', link: '/integrations' },
     { id: 4, label: 'Our Tools', link: '/our-tools' },
     { id: 5, label: 'Resources', link: '/payment' },
-  ]
+  ],
 };
 
 export default staticData;

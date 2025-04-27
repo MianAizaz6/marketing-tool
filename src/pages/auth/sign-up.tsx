@@ -8,9 +8,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignUpSchemaType, signUpSchema } from '../../schemas/auth-schemas';
 import { useMutation } from '@tanstack/react-query';
-import { handleGoogleSignUp, signUpUser } from '../../apis/auth';
+import { signUpUser } from '../../apis/auth';
 import { handleApiError } from '../../utils/handleApiError';
 import toast from 'react-hot-toast';
+import { handleGoogleLogin } from '../../utils/handleGoogleLogin';
 
 const SignUp = () => {
   const {
@@ -43,8 +44,7 @@ const SignUp = () => {
       <div className="bg-[#F8F8F8] flex flex-col gap-[30px] w-full min-h-full md:w-[60%] px-[20px] md:px-[50px] justify-center lg:px-[130px] py-[170px]">
         <AuthHeading title={'Create your account'} />
         <AuthFormWrapper onSubmit={handleSubmit(onSubmitSignUp)}>
-          <GoogleAuthBtn text="Sign up with Google" onClick={handleGoogleSignUp} />
-
+          <GoogleAuthBtn text="Sign up with Google" onClick={handleGoogleLogin} />
           <AuthField
             type="text"
             label="Name"

@@ -11,6 +11,8 @@ import { signInUser } from '../../apis/auth';
 import { handleApiError } from '../../utils/handleApiError';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { handleGoogleLogin } from '../../utils/handleGoogleLogin';
+import GoogleAuthBtn from '../../components/auth/google-auth-btn';
 
 const SignIn = () => {
   const {
@@ -51,6 +53,7 @@ const SignIn = () => {
       <div className="bg-[#F8F8F8] flex flex-col gap-[30px] w-full min-h-full md:w-[60%] px-[20px] md:px-[50px] justify-center lg:px-[130px] py-[170px]">
         <AuthHeading title={'Welcome Back'} />
         <AuthFormWrapper onSubmit={handleSubmit(onSubmit)}>
+          <GoogleAuthBtn text="Sign in with Google" onClick={handleGoogleLogin} />
           <AuthField
             type="text"
             label="Email"
