@@ -31,7 +31,7 @@ const SignIn = () => {
       if (data?.accessToken) {
         localStorage.setItem('token', data.accessToken); // or sessionStorage
         toast.success('Login successful!');
-        navigate('/dashboard'); // Or wherever you want to take them
+        navigate('/'); // Or wherever you want to take them
       } else {
         toast.error('Something went wrong. Please try again.');
       }

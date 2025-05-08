@@ -18,7 +18,7 @@ export const handleGoogleLogin = () => {
       console.log('Received token:', token);
 
       localStorage.setItem('accessToken', token);
-      window.location.href = '/dashboard'; // wherever you want
+      window.location.href = '/'; // wherever you want
 
       // Important: Cleanup listener and close popup
       window.removeEventListener('message', messageListener);
