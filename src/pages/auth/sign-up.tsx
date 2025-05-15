@@ -23,7 +23,7 @@ const SignUp = () => {
   const signUpmutation = useMutation({
     mutationFn: signUpUser,
     onSuccess: () => {
-      toast.success('Account Created Successfully');
+      toast.success('Please verify your Email to Continue');
       // Maybe redirect or show toast
     },
     onError: error => {

@@ -12,6 +12,7 @@ import Contact from './pages/contact';
 import AboutUs from './pages/about-us';
 import CreateWorkSpace from './pages/dashboard/create-workspace';
 import OnBoarding from './pages/dashboard/onboarding';
+import EmailVerification from './pages/auth/verify-email';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ export function App() {
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/auth/verify/:token" element={<EmailVerification />} />
         </Routes>
       </Router>
       <Toaster position="bottom-right" reverseOrder={false} />
