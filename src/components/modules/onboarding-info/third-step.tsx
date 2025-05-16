@@ -1,5 +1,6 @@
 import React from 'react'
 import { step3 } from '../../../static-img-url';
+import { Link } from 'react-router-dom';
 
 type MyComponentProps = {
   ChangeStep: (step: number) => void;
@@ -43,13 +44,12 @@ const ThirdStep: React.FC<MyComponentProps> = ({ ChangeStep }) => {
           Back
         </button>
 
-        <button
+        <Link to={'/create-workspace'}
           type="button"
-          onClick={() => ChangeStep(3)}
           className="bg-gray-900 text-white cursor-pointer text-sm px-4 py-2 rounded-md hover:bg-gray-800 transition"
         >
           Get Started
-        </button>
+        </Link>
       </div>
     </div>
   )

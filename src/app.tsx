@@ -10,9 +10,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import Contact from './pages/contact';
 import AboutUs from './pages/about-us';
-import CreateWorkSpace from './pages/dashboard/create-workspace';
-import OnBoarding from './pages/dashboard/onboarding';
 import EmailVerification from './pages/auth/verify-email';
+import Onboarding from './pages/dashboard/onboarding';
+import OnBoardingInfo from './pages/dashboard/onboarding-info';
+
 
 const queryClient = new QueryClient();
 
@@ -26,8 +27,8 @@ export function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/pricing" element={<PricingPlans />} />
           <Route path="/payment" element={<PaymentFrom />} />
-          <Route path="/onboarding" element={<OnBoarding />} />
-          <Route path="/create-workspace" element={<CreateWorkSpace />} />
+          <Route path="/onboarding-info" element={<OnBoardingInfo />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/about-us" element={<AboutUs />} />
