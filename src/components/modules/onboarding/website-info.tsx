@@ -8,9 +8,10 @@ type MyComponentProps = {
   ChangeStep: (step: number) => void,
   formData: object,
   onChangeHandler: (name: string, value: string) => void,
+  validation: boolean,
 };
 
-const WebsiteInfo: React.FC<MyComponentProps> = ({ ChangeStep, formData, onChangeHandler }) => {
+const WebsiteInfo: React.FC<MyComponentProps> = ({ ChangeStep, formData, onChangeHandler, validation }) => {
 
 
   const { websiteUrl, description, logo } = formData;
@@ -22,7 +23,7 @@ const WebsiteInfo: React.FC<MyComponentProps> = ({ ChangeStep, formData, onChang
 
 
         <div>
-          <InputField name="websiteUrl" label='Website URL' type="text" placeholder="Website URL" value={websiteUrl} onChange={onChangeHandler} />
+          <InputField name="websiteUrl" label='Website URL *' validation={validation} type="text" placeholder="Website URL" value={websiteUrl} onChange={onChangeHandler} />
         </div>
 
         <Textarea name="description" label='Business Description' type="text" placeholder="Business Description" value={description} onChange={onChangeHandler} />

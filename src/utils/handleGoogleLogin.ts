@@ -1,3 +1,6 @@
+import toast from "react-hot-toast";
+import { getUserInfo } from "../apis/auth";
+
 export const handleGoogleLogin = () => {
   const width = 500;
   const height = 600;
@@ -11,14 +14,25 @@ export const handleGoogleLogin = () => {
   );
 
   // Now listen for the token from popup
-  const messageListener = (event: MessageEvent) => {
+  const messageListener = async (event: MessageEvent) => {
     if (event.data?.payload) {
       const payload = JSON.parse(event.data.payload);
       const token = payload.token;
       console.log('Received token:', token);
 
       localStorage.setItem('accessToken', token);
-      window.location.href = '/'; // wherever you want
+
+      try {
+        const userInfo = await getUserInfo(token);
+        // Save user info - example: in localStorage or your app state
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+        // Now navigate
+        window.location.href = '/'; // wherever you want
+      } catch (err) {
+        toast.error('Failed to fetch user info. Please try again.');
+        console.error('Error fetching user info:', err);
+      }
 
       // Important: Cleanup listener and close popup
       window.removeEventListener('message', messageListener);

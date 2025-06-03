@@ -12,6 +12,15 @@ export const verifyUser = async (token: string) => {
   return response.data;
 };
 
+export const getUserInfo = async (token: string) => {
+  const response = await axios.get(`${baseUrl}/api/auth/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
 export const sendOtp = async (data: { email: string }) => {
   const response = await axios.post(`${baseUrl}/api/verification/send-otp`, data);
   return response.data;
@@ -35,6 +44,7 @@ export const signInUser = async (data: { email: string; password: string }) => {
   const response = await axios.post(`${baseUrl}/api/auth/login`, data);
   return response.data;
 };
+
 
 export const handleGoogleSignUp = () => {
   window.location.href = `${baseUrl}/api/auth/google/login`;

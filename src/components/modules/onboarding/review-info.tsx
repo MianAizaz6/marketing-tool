@@ -5,9 +5,13 @@ import { tickIcon } from '../../../static-img-url';
 type MyComponentProps = {
   ChangeStep: (step: number) => void;
   formData: object,
+  onSubmit: (data: object) => void
 };
 
-const ReviewInfo: React.FC<MyComponentProps> = ({ ChangeStep }) => {
+const ReviewInfo: React.FC<MyComponentProps> = ({ ChangeStep, formData, onSubmit }) => {
+
+  const { websiteUrl, description, goals, metrics } = formData;
+
   return (
     <CardWrapper title='Review your info' desc="Invite your team to collaborate and streamline your content planning.">
       <div className="space-y-4 bg-white p-6 rounded-md">
@@ -22,7 +26,7 @@ const ReviewInfo: React.FC<MyComponentProps> = ({ ChangeStep }) => {
               />
               <div>
                 <p className="text-sm font-medium text-gray-800">Website URL</p>
-                <p className="text-sm text-gray-600">www.technobrands.com</p>
+                <p className="text-sm text-gray-600">{websiteUrl !== '' ? websiteUrl : 'www.example.com'}</p>
               </div>
             </div>
             <button className="text-gray-500 hover:text-black transition">
@@ -33,9 +37,7 @@ const ReviewInfo: React.FC<MyComponentProps> = ({ ChangeStep }) => {
           <div>
             <p className="text-sm font-semibold text-gray-700 mb-1">Business Description</p>
             <p className="text-sm text-gray-600 leading-relaxed">
-              Your one-stop shop for quality products, seamless shopping, and fast delivery.
-              We make online buying easy, secure, and enjoyable — helping you find what you
-              love, when you need it.
+              {description ? description : "Your one-stop shop for quality products, seamless shopping, and fast delivery.We make online buying easy, secure, and enjoyable — helping you find what you love, when you need it."}
             </p>
           </div>
         </div>
@@ -52,30 +54,35 @@ const ReviewInfo: React.FC<MyComponentProps> = ({ ChangeStep }) => {
           <div className="mb-3">
             <p className="text-sm font-semibold text-gray-700 mb-2">Your Goals</p>
             <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
-                Increase sales/conversions
-              </span>
-              <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
-                Improve customer retention
-              </span>
-              <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
-                Drive more traffic
-              </span>
+              {
+                goals && goals.length ? goals.map((item: string) => {
+                  return (
+                    <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
+                      {item}
+                    </span>
+                  )
+                }) : <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
+                  No goals selected..
+                </span>
+              }
             </div>
           </div>
 
           <div>
             <p className="text-sm font-semibold text-gray-700 mb-2">Target metrics</p>
             <div className="flex flex-wrap gap-2">
-              <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
-                Page speed
-              </span>
-              <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
-                Bounce rate
-              </span>
-              <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
-                Conversion rate
-              </span>
+
+              {
+                metrics && metrics.length ? metrics.map((item: string) => {
+                  return (
+                    <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
+                      {item}
+                    </span>
+                  )
+                }) : <span className="px-3 py-1 bg-white border border-gray-300 rounded-full text-xs text-gray-700">
+                  No metrics selected..
+                </span>
+              }
             </div>
           </div>
         </div>
@@ -92,7 +99,7 @@ const ReviewInfo: React.FC<MyComponentProps> = ({ ChangeStep }) => {
 
         <button
           type="button"
-          onClick={() => ChangeStep(4)}
+          onClick={() => onSubmit(formData)}
           className="w-fit px-8 bg-black cursor-pointer text-white rounded-md py-2 font-medium hover:bg-gray-900 transition"
         >
           Get Started

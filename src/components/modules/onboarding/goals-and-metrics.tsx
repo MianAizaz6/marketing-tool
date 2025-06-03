@@ -28,17 +28,40 @@ type MyComponentProps = {
   ChangeStep: (step: number) => void;
   formData: object,
   onChangeHandler: (name: string, value: string) => void,
+  setFormData: () => void;
 };
 
-const GoalsAndMetrics: React.FC<MyComponentProps> = ({ ChangeStep, }) => {
+const GoalsAndMetrics: React.FC<MyComponentProps> = ({ ChangeStep, setFormData }) => {
   const [selectedGoals, setSelectedGoals] = useState<number[]>([]);
   const [selectedMetrics, setSelectedMetrics] = useState<number[]>([]);
 
-  const toggleSelection = (id: number, list: number[], setList: React.Dispatch<React.SetStateAction<number[]>>) => {
-    setList((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+  const toggleSelection = (
+    id: number,
+    list: number[],
+    setList: React.Dispatch<React.SetStateAction<number[]>>,
+    field: "goals" | "metrics",
+    data: Option[]
+  ) => {
+    setList((prev) => {
+      const isSelected = prev.includes(id);
+      const updatedList = isSelected
+        ? prev.filter((item) => item !== id)
+        : [...prev, id];
+
+      // Update formData using the selected labels
+      const updatedLabels = updatedList.map(
+        (itemId) => data.find((d) => d.id === itemId)?.label || ""
+      ).filter(Boolean);
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [field]: updatedLabels,
+      }));
+
+      return updatedList;
+    });
   };
+
 
   return (
     <CardWrapper title="Business Goals and Target Metrics" desc=" Select the options below which you want to make better and grow your business">
@@ -56,7 +79,7 @@ const GoalsAndMetrics: React.FC<MyComponentProps> = ({ ChangeStep, }) => {
                   : "border-gray-200 hover:border-gray-400"
                 }`}
               onClick={() =>
-                toggleSelection(goal.id, selectedGoals, setSelectedGoals)
+                toggleSelection(goal.id, selectedGoals, setSelectedGoals, "goals", goalsData)
               }
             >
               {goal.label}
@@ -78,7 +101,7 @@ const GoalsAndMetrics: React.FC<MyComponentProps> = ({ ChangeStep, }) => {
                   : "border-gray-200 hover:border-gray-400"
                 }`}
               onClick={() =>
-                toggleSelection(metric.id, selectedMetrics, setSelectedMetrics)
+                toggleSelection(metric.id, selectedMetrics, setSelectedMetrics, "metrics", metricsData)
               }
             >
               <div>{metric.label}</div>

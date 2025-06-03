@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignInSchemaType, signInSchema } from '../../schemas/auth-schemas';
 import { useMutation } from '@tanstack/react-query';
-import { signInUser } from '../../apis/auth';
+import { getUserInfo, signInUser } from '../../apis/auth';
 import { handleApiError } from '../../utils/handleApiError';
 import toast from 'react-hot-toast';
 import { handleGoogleLogin } from '../../utils/handleGoogleLogin';
@@ -27,11 +27,21 @@ const SignIn = () => {
 
   const mutation = useMutation({
     mutationFn: signInUser,
-    onSuccess: data => {
+    onSuccess: async data => {
       if (data?.accessToken) {
         localStorage.setItem('token', data.accessToken); // or sessionStorage
         toast.success('Login successful!');
-        navigate('/'); // Or wherever you want to take them
+        try {
+          const userInfo = await getUserInfo(data?.token);
+          // Save user info - example: in localStorage or your app state
+          localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+          // Now navigate
+          navigate('/');
+        } catch (err) {
+          toast.error('Failed to fetch user info. Please try again.');
+          console.error('Error fetching user info:', err);
+        }
       } else {
         toast.error('Something went wrong. Please try again.');
       }

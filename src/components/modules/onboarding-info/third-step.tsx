@@ -44,7 +44,7 @@ const ThirdStep: React.FC<MyComponentProps> = ({ ChangeStep }) => {
           Back
         </button>
 
-        <Link to={'/create-workspace'}
+        <Link to={'/onboarding'}
           type="button"
           className="bg-gray-900 text-white cursor-pointer text-sm px-4 py-2 rounded-md hover:bg-gray-800 transition"
         >
