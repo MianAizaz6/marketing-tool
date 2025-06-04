@@ -25,7 +25,7 @@ const CompititorData: React.FC<MyComponentProps> = ({ ChangeStep, addNewLink, we
             return (
               <div className='relative'>
                 <div className={`${websiteURLs && websiteURLs.length > 1 ? 'w-[95%]' : 'w-full'}`}>
-                  <InputField name={key} onChange={onChangeWebsiteLink} label={`Competitor Website URL ${key + 1}`} type="text" placeholder="Competitor Website URL" value={item.url} />
+                  <InputField name={key} onChange={onChangeWebsiteLink} label={`Competitor Website URL ${key + 1}`}  type="text" placeholder="Competitor Website URL" value={item.url} />
                 </div>
                 {
                   websiteURLs && websiteURLs.length > 1 && key > 0 ? <button onClick={() => removeLink(key)} className='absolute cursor-pointer top-10 -right-1 w-6 h-6 bg-red-500 rounded-full text-white text-sm' >X</button> : undefined
