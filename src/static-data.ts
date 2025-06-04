@@ -1,5 +1,11 @@
 import {
+  adsIcon,
+  auditActiveIcon,
+  auditIcon,
   callIcon,
+  competitorIcon,
+  dashboardActiveIcon,
+  dashboardIcon,
   emailIcon,
   facebook,
   insta,
@@ -50,6 +56,12 @@ export type IconBoxProps = {
   callToAction: string;
 };
 
+export type menuItems = {
+  icon: string;
+  activeIcon: string;
+  heading: string;
+};
+
 export const contactUsData = [
   {
     icon: emailIcon,
@@ -82,6 +94,146 @@ export const logosArray = [
   sliderLogo3,
   sliderLogo4,
   sliderLogo5,
+];
+
+export const dashboardMenuItems = [
+  {
+    heading: 'Dashboard',
+    activeIcon: dashboardActiveIcon,
+    icon: dashboardIcon,
+  },
+  {
+    heading: 'Website Audit',
+    activeIcon: auditActiveIcon,
+    icon: auditIcon,
+  },
+  {
+    heading: 'Website Competitor Analysis',
+    activeIcon: competitorIcon,
+    icon: competitorIcon,
+  },
+  {
+    heading: 'Ad Campaigns Audit',
+    activeIcon: adsIcon,
+    icon: adsIcon,
+  },
+  {
+    heading: 'Ads Competitor Analysis',
+    activeIcon: competitorIcon,
+    icon: competitorIcon,
+  },
+  {
+    heading: 'Website Recommendations',
+    activeIcon: auditActiveIcon,
+    icon: auditIcon,
+  },
+  {
+    heading: 'Ads Recommendations',
+    activeIcon: auditActiveIcon,
+    icon: auditIcon,
+  },
+];
+
+export const websiteModuleBtns = [
+  {
+    name: 'SEO',
+    link: '/',
+  },
+  {
+    name: 'Web Speed',
+    link: '/',
+  },
+  {
+    name: 'Mobile Useability',
+    link: '/',
+  },
+  {
+    name: 'Content Quality and relevance',
+    link: '/',
+  },
+  {
+    name: 'Backlinks and domain authority',
+    link: '/',
+  },
+];
+
+export const speedMetrics = [
+  {
+    heading: 'First Contentful Paint',
+    metrics: '1.0 s',
+  },
+  {
+    heading: 'Largest Contentful Paint',
+    metrics: '1.4 s',
+  },
+  {
+    heading: 'Total Blocking Time',
+    metrics: '30 MS',
+  },
+  {
+    heading: 'Cumulative Layout Shift',
+    metrics: '0.005',
+  },
+  {
+    heading: 'Speed Index',
+    metrics: '1.4 S',
+  },
+];
+
+export type Level = 'High' | 'Medium' | 'Low';
+
+export const speedMetricsOptions = ['All', 'FCP', 'LCP', 'TBT', 'CLS'];
+
+export interface ImprovmentSuggestionCardProps {
+  level: Level;
+  numberOfImprovements: number;
+}
+
+export interface ImprovmentSuggestionTextProps {
+  level: Level;
+  improvmentText: string;
+}
+
+export type metricsComparisonDataProps = {
+  metric: 'FCP' | 'LCP' | 'TBT' | 'CLS'; // strictly typed
+  unit: 's' | 'MS' | ''; // limited to known units
+  you: number;
+  competitor: number;
+};
+
+export const metricsComparisonData: metricsComparisonDataProps[] = [
+  { metric: 'CLS', you: 0.007, competitor: 0.005, unit: '' },
+  { metric: 'FCP', you: 1.5, competitor: 1.0, unit: 's' },
+  { metric: 'LCP', you: 2.4, competitor: 1.4, unit: 's' },
+  { metric: 'TBT', you: 30, competitor: 14, unit: 'MS' },
+];
+
+export const improvementsSuggestionTextData: ImprovmentSuggestionTextProps[] = [
+  {
+    improvmentText:
+      'Consider using structured data in your webpage as it can help search engines gain a better understanding of your content.',
+    level: 'High',
+  },
+  {
+    improvmentText:
+      'It is recommended to avoid URL parameters and to use hyphens to separate words in the URL structure, rather than underscores.',
+    level: 'Medium',
+  },
+  {
+    improvmentText:
+      'To improve the website experience for your visitors, it is recommended to eliminate any render-blocking resources on this webpage.',
+    level: 'High',
+  },
+  {
+    improvmentText: 'Is it accessible',
+    level: 'Low',
+  },
+];
+
+export const improvementsSuggestionsData: ImprovmentSuggestionCardProps[] = [
+  { numberOfImprovements: 3, level: 'High' },
+  { numberOfImprovements: 6, level: 'Medium' },
+  { numberOfImprovements: 9, level: 'Low' },
 ];
 
 const staticData = {
@@ -177,7 +329,7 @@ const staticData = {
     { id: 5, label: 'Resources', link: '/payment' },
     { id: 5, label: 'About', link: '/about-us' },
     { id: 5, label: 'Contact', link: '/contact-us' },
-  ]
+  ],
 };
 
 export default staticData;

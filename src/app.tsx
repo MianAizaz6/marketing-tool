@@ -13,7 +13,9 @@ import AboutUs from './pages/about-us';
 import EmailVerification from './pages/auth/verify-email';
 import Onboarding from './pages/dashboard/onboarding';
 import OnBoardingInfo from './pages/dashboard/onboarding-info';
-
+import DashboardLayout from './components/dashboard/dashboard-layout';
+import SpeedAnalysis from './pages/dashboard/speed-analysis';
+import SeoAnalysis from './pages/dashboard/seo-analysis';
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,11 @@ export function App() {
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/auth/verify/:token" element={<EmailVerification />} />
+          {/* Dashboard Routes */}
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index path="speed-analysis" element={<SpeedAnalysis />} />
+            <Route path="seo-analysis" element={<SeoAnalysis />} />
+          </Route>
         </Routes>
       </Router>
       <Toaster position="bottom-right" reverseOrder={false} />
