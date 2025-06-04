@@ -51,7 +51,7 @@ const Onboarding: React.FC = () => {
   const onBoardingMutation = useMutation({
     mutationFn: OnboardUser,
     onSuccess: () => {
-      toast.success('Please verify your Email to Continue');
+      toast.success('Onboarding data submitted successfully!');
       // Maybe redirect or show toast
     },
     onError: error => {
