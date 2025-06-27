@@ -1,14 +1,17 @@
+import { extractWordsFromURL } from "../utils/utilityFunctions";
+
 const onBoardingPayload = (formData: any) => {
   const { userId, websiteUrl, description, logo, goals, metrics, competitorWebsite } = formData;
 
   const fd = new FormData();
 
+  const workspaceName = extractWordsFromURL(websiteUrl);
+
   fd.append('userId', userId);
   fd.append('websiteUrl', websiteUrl);
-  fd.append('workspaceName', 'Untitled workspace');
+  fd.append('workspaceName', `${workspaceName} Workspace`);
   fd.append('businessDescription', description);
   fd.append('logoUrl', logo[0]);
-  console.log('===logo', logo);
 
   // These must be stringified arrays
   fd.append('goals', JSON.stringify(goals));

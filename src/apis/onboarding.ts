@@ -4,6 +4,8 @@ const baseUrl = import.meta.env.VITE_BASE_API_URL;
 
 const token = localStorage.getItem('accessToken');
 
+console.log('====token1111', token);
+
 export const OnboardUser = async (data: {
   websiteUrl: string;
   description: string;
@@ -19,3 +21,13 @@ export const OnboardUser = async (data: {
   });
   return response.data;
 };
+
+export const getWorkSpaceList = async (query: string) => {
+  const response = await axios.get(`${baseUrl}/api/onboard-process${query || ''}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+

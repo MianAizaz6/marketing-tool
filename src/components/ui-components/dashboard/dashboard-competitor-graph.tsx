@@ -35,7 +35,7 @@ const DashboardCompetitorGraph = ({ data }: Props) => {
           margin={{ top: 10, right: 30, left: 60, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis type="number" />
+          <XAxis type="number" domain={[0, 10]} />
           <YAxis type="category" dataKey="metric" />
           <Tooltip
             formatter={(value: number, _name, props) =>

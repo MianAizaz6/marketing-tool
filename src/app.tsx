@@ -16,6 +16,7 @@ import OnBoardingInfo from './pages/dashboard/onboarding-info';
 import DashboardLayout from './components/dashboard/dashboard-layout';
 import SpeedAnalysis from './pages/dashboard/speed-analysis';
 import SeoAnalysis from './pages/dashboard/seo-analysis';
+import WebsiteLayout from './components/dashboard/website-module/website-layout';
 
 const queryClient = new QueryClient();
 
@@ -36,10 +37,13 @@ export function App() {
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/auth/verify/:token" element={<EmailVerification />} />
           {/* Dashboard Routes */}
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index path="speed-analysis" element={<SpeedAnalysis />} />
-            <Route path="seo-analysis" element={<SeoAnalysis />} />
+          <Route path="dashboard" element={<DashboardLayout />}>
+            <Route path="website-audit" element={<WebsiteLayout />}>
+              <Route index element={<SeoAnalysis />} />
+              <Route path="speed-analysis" element={<SpeedAnalysis />} />
+            </Route>
           </Route>
+
         </Routes>
       </Router>
       <Toaster position="bottom-right" reverseOrder={false} />

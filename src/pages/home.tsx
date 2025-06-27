@@ -6,11 +6,16 @@ import staticData from '../static-data';
 import Footer from '../components/ui-components/footer';
 import Header from '../components/ui-components/header';
 import CTASection from '../components/modules/home/cta-section';
+import { Link } from 'react-router-dom';
 
 
 const LandingPage = () => {
 
   const logos = [logo1, logo2, logo3, logo1, logo3];
+
+  const token = localStorage.getItem('accessToken');
+
+  const redirect = token && token !== null ? '/onboarding-info' : '/sign-in';
 
   return (
     <div className="font-sans w-full text-[#1D1D1F]">
@@ -41,7 +46,7 @@ const LandingPage = () => {
             Streamline your social media strategy with powerful automation and AI-driven insights.
           </p>
           <div className="flex justify-center gap-4 mt-6 flex-wrap">
-            <button className="bg-[#1D1D1F] text-white px-6 py-2 rounded">Try our product</button>
+            <Link to={redirect} className="bg-[#1D1D1F] text-white px-6 py-2 rounded">Try our product</Link>
             <button className="border border-[#1D1D1F] px-6 py-2 rounded">Learn more</button>
           </div>
         </section>

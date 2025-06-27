@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WebsiteInfo from "../../../components/modules/onboarding/website-info";
 import StepDot from "../../../components/modules/onboarding/step-dot";
 import GoalsAndMetrics from "../../../components/modules/onboarding/goals-and-metrics";
@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import { handleApiError } from "../../../utils/handleApiError";
 import { OnboardUser } from "../../../apis/onboarding";
 import onBoardingPayload from "../../../payloads/onboarding-payload";
+import OnBoardingLoading from "../../../components/modules/onboarding/onboarding-loading";
+import OnBoardingSuccess from "../../../components/modules/onboarding/onboarding-success";
 
 interface FormDataType {
   websiteUrl: string;
@@ -30,7 +32,6 @@ const Onboarding: React.FC = () => {
   const [validation, setValidation] = useState(false);
 
   const userId = JSON.parse(localStorage.getItem('userInfo')).id;
-  console.log(userId);
 
   const [formData, setFormData] = useState<FormDataType>({
     websiteUrl: "",
@@ -59,6 +60,9 @@ const Onboarding: React.FC = () => {
       // Show toast error maybe
     },
   });
+
+
+
 
   const onSubmit = (data: object) => {
     onBoardingMutation.mutate(onBoardingPayload({ ...data, competitorWebsite: websiteLinks, userId }));
@@ -142,6 +146,8 @@ const Onboarding: React.FC = () => {
       removeLink={removeWebsiteURL}
     />,
     <ReviewInfo ChangeStep={ChangeStep} formData={formData} onSubmit={onSubmit} />,
+    <OnBoardingLoading />,
+    <OnBoardingSuccess />
   ];
 
   const stepsLabels = [
@@ -151,9 +157,20 @@ const Onboarding: React.FC = () => {
     { id: 3, label: "Review Info" },
   ];
 
+
+  useEffect(() => {
+    if (onBoardingMutation.isPending) {
+      console.log("Setting active step to 5 (pending)");
+      setActiveStep(5);
+    } else if (onBoardingMutation.isSuccess) {
+      console.log("Setting active step to 6 (success)");
+      setActiveStep(6);
+    }
+  }, [onBoardingMutation.isPending, onBoardingMutation.isSuccess])
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white p-4">
-      <div className="flex items-center justify-center relative w-full max-w-[60%] mx-auto mb-6">
+      {activeStep > 4 ? undefined : (<div className="flex items-center justify-center relative w-full max-w-[60%] mx-auto mb-6">
         {stepsLabels.map((step, index) => (
           <div key={index} className="flex items-center">
             <StepDot
@@ -166,7 +183,8 @@ const Onboarding: React.FC = () => {
             )}
           </div>
         ))}
-      </div>
+      </div>)}
+
       {steps[activeStep]}
     </div>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../../../static-img-url';
+import { useQuery } from '@tanstack/react-query';
+import { getWorkSpaceList } from '../../../apis/onboarding';
 
 
 interface NavDropdownProps {
@@ -16,6 +18,21 @@ interface UserInfo {
 
 const NavDropdown: React.FC<NavDropdownProps> = ({ isOpen, toggle, logout }) => {
   const info: UserInfo = { name: 'User', email: 'user@gmail.com' };
+
+
+  const storedUserInfo = localStorage.getItem('userInfo');
+  const userId = storedUserInfo ? JSON.parse(storedUserInfo).id : null;
+
+  const workSpaceListQuery = useQuery({
+    queryKey: ["workspace-list"],
+    queryFn: async () => {
+      const data = await getWorkSpaceList(`?userId=${userId}`);
+      return data
+    }
+  });
+
+  const isFirstTime = workSpaceListQuery?.data?.items?.length < 1;
+
 
   return (
     <div
@@ -40,7 +57,7 @@ const NavDropdown: React.FC<NavDropdownProps> = ({ isOpen, toggle, logout }) => 
       <ul className="py-2">
         <li>
           <Link
-            to="/dashboard"
+            to={`${isFirstTime ? '/onboarding-info' : '/dashboard'}`}
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             onClick={() => toggle(false)}
           >

@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
+
 interface menuItemProps {
   menuIcon: string;
   menuIconActive: string;
   activeMenu: boolean;
   menuText: string;
+  to:string,
   handleMenuClick: (heading: string) => void;
 }
 
@@ -11,6 +14,7 @@ const DashboardMenuItem = ({
   menuIconActive,
   activeMenu,
   menuText,
+  to,
   handleMenuClick,
 }: menuItemProps) => {
   return (
@@ -33,11 +37,11 @@ const DashboardMenuItem = ({
             alt={menuText}
           />
         </div>
-        <h3
+        <Link to={to}
           className={`text-[14px] font-medium leading-[14px] ${activeMenu ? 'text-[#FF4400]' : 'text-[#333333]'}`}
         >
           {menuText}
-        </h3>
+        </Link>
       </div>
     </div>
   );

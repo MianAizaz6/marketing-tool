@@ -4,13 +4,27 @@ import { dashboardLogo, settingsIcon, signoutIcon } from '../../static-img-url';
 import DashboardMenuItem from './dashboard-menu-item';
 import DashboardWorkspaceSwitcher from './dashboard-workspace-switcher';
 import DashboardPricingData from './dashboard-pricing-data';
+import { useQuery } from '@tanstack/react-query';
+import { getWorkSpaceList } from '../../apis/onboarding';
 
 const DashboardSidebar = () => {
   const [activeMenu, setActiveMenu] = useState<string>(dashboardMenuItems[0].heading);
 
+  const storedUserInfo = localStorage.getItem('userInfo');
+  const userId = storedUserInfo ? JSON.parse(storedUserInfo).id : null;
+
+
   const handleMenuClick = (heading: string) => {
     setActiveMenu(heading);
   };
+
+  const workSpaceListQuery = useQuery({
+    queryKey: ["workspace-list"],
+    queryFn: async () => {
+      const data = await getWorkSpaceList(`?userId=${userId}`);
+      return data
+    }
+  });
 
   return (
     <div className="w-[270px] h-screen fixed left-0 top-0 bg-[#F8F8F8] flex flex-col justify-between">
@@ -23,7 +37,7 @@ const DashboardSidebar = () => {
           />
         </div>
         <div className="flex flex-col gap-[4px]">
-          <DashboardWorkspaceSwitcher />
+          <DashboardWorkspaceSwitcher data={workSpaceListQuery?.data?.items} />
           <div className="flex flex-col gap-[1px]">
             {dashboardMenuItems.map(item => (
               <DashboardMenuItem
@@ -32,6 +46,7 @@ const DashboardSidebar = () => {
                 menuText={item.heading}
                 activeMenu={activeMenu === item.heading}
                 handleMenuClick={handleMenuClick}
+                to={item.link}
               />
             ))}
           </div>

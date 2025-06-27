@@ -1,18 +1,28 @@
-import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 import { websiteModuleBtns } from '../../../static-data';
 
-const DashboardWebsiteModuleBtns = () => {
-  const [activePage, setActivePage] = useState('Web Speed');
-  const changePage = (pageLink: string) => {
-    setActivePage(pageLink);
-  };
+const DashboardWebsiteModuleBtns = ({ activePage }: { activePage: string }) => {
+
+  const navigate = useNavigate();
+
+  const basePath = '/dashboard/website-audit';
+
+  const active = () => {
+    if (activePage === 'website-audit') {
+      return '/'
+    }
+    else {
+      return `/${activePage}`
+    }
+  }
   return (
     <div className="flex bg-[#FAFAFA] rounded-[3px]">
       {websiteModuleBtns.map(item => (
         <button
-          className={`px-[12px] cursor-pointer h-[32px] text-[14px] flex items-center rounded-[3px] justify-center ${activePage === item.name ? 'bg-[#0F172A] text-white' : 'text-[#334155]'}`}
+          className={`px-[12px] cursor-pointer h-[32px] text-[14px] flex items-center rounded-[3px] justify-center ${active() === item.link ? 'bg-[#0F172A] text-white' : 'text-[#334155]'}`}
           key={item.link}
-          onClick={() => changePage(item.name)}
+          onClick={() => navigate(item.link === '/' ? basePath : `${basePath}${item.link}`)}
         >
           {item.name}
         </button>
