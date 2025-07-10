@@ -1,4 +1,3 @@
-import { MetaTestResult } from './components/dashboard/website-module/seo-analysis/meta-tag-result';
 import {
   adsIcon,
   auditActiveIcon,
@@ -23,6 +22,7 @@ import {
   whatsap,
   youtube,
 } from './static-img-url';
+import { ImprovmentSuggestionTextProps, metricsComparisonDataProps } from './utils/interfaces';
 
 // types/staticData.ts
 export interface Feature {
@@ -102,66 +102,66 @@ export const dashboardMenuItems = [
     heading: 'Dashboard',
     activeIcon: dashboardActiveIcon,
     icon: dashboardIcon,
-    link: '/'
+    link: '/',
   },
   {
     heading: 'Website Audit',
     activeIcon: auditActiveIcon,
     icon: auditIcon,
-    link: 'website-audit'
+    link: 'website-audit',
   },
   {
     heading: 'Website Competitor Analysis',
     activeIcon: competitorIcon,
     icon: competitorIcon,
-    link: '/'
+    link: '/',
   },
   {
     heading: 'Ad Campaigns Audit',
     activeIcon: adsIcon,
     icon: adsIcon,
-    link: '/'
+    link: '/',
   },
   {
     heading: 'Ads Competitor Analysis',
     activeIcon: competitorIcon,
     icon: competitorIcon,
-    link: '/'
+    link: '/',
   },
   {
     heading: 'Website Recommendations',
     activeIcon: auditActiveIcon,
     icon: auditIcon,
-    link: '/'
+    link: '/',
   },
   {
     heading: 'Ads Recommendations',
     activeIcon: auditActiveIcon,
     icon: auditIcon,
-    link: '/'
+    link: '/',
   },
 ];
 
 export const websiteModuleBtns = [
   {
     name: 'SEO',
-    link: '/'
+    link: '/',
   },
   {
     name: 'Web Speed',
-    link: '/speed-analysis'
+    link: '/speed-analysis',
   },
   {
     name: 'Mobile Useability',
-    link: '/mobile-useability'
+    link: '/mobile-useability',
   },
   {
     name: 'Content Quality and relevance',
-    link: '/content-quality'
+    link: '/content-quality',
   },
   {
     name: 'Backlinks and domain authority',
-    link: '/backlinks'
+    link: '/backlinks',
   },
 ];
 
@@ -226,29 +226,8 @@ export const pageSpeedMetrics = [
   },
 ];
 
-export type Level = 'high' | 'medium' | 'low' | 'Failed' | 'Warnings' | 'Passed';
-
 export const speedMetricsOptions = ['All', 'FCP', 'LCP', 'TBT', 'CLS'];
-export const seoMetricsOptions = ['All', 'Issues', 'Improvements',];
-
-export interface ImprovmentSuggestionCardProps {
-  level: Level;
-  numberOfImprovements: number;
-  isActive: boolean,
-  onClick?: () => void
-}
-
-export interface ImprovmentSuggestionTextProps {
-  level: Level;
-  improvmentText: string;
-}
-
-export type metricsComparisonDataProps = {
-  metric: 'FCP' | 'LCP' | 'TBT' | 'CLS'; // strictly typed
-  unit: 's' | 'MS' | ''; // limited to known units
-  you: number;
-  competitor: number;
-};
+export const seoMetricsOptions = ['All', 'Issues', 'Improvements'];
 
 export const metricsComparisonData: metricsComparisonDataProps[] = [
   { metric: 'CLS', you: 0.007, competitor: 0.005, unit: '' },
@@ -278,51 +257,6 @@ export const improvementsSuggestionTextData: ImprovmentSuggestionTextProps[] = [
     level: 'Low',
   },
 ];
-
-export const improvementsSuggestionsData: ImprovmentSuggestionCardProps[] = [
-  { numberOfImprovements: 3, level: 'High' },
-  { numberOfImprovements: 6, level: 'Medium' },
-  { numberOfImprovements: 9, level: 'Low' },
-];
-
-export const seoimprovementsData: ImprovmentSuggestionCardProps[] = [
-  { numberOfImprovements: 14, level: 'Failed' },
-  { numberOfImprovements: 13, level: 'Warnings' },
-  { numberOfImprovements: 56, level: 'Passed' },
-];
-
-export const metaTestData: MetaTestResult[] = [
-  {
-    label: 'Meta Title Test',
-    status: 'pass',
-    message: 'This webpage is using a title tag.',
-    text: 'Boost your social media management',
-    length: 33,
-  },
-  {
-    label: 'Meta Title Description',
-    status: 'pass',
-    message: 'This webpage is using a meta description tag.',
-    text: 'Your AI-powered hub for seamless social media scheduling and content creation. Elevate your digital presence with smart automation and creative tools.',
-    length: 150,
-  },
-  {
-    label: 'Alt text for Images',
-    status: 'pass',
-    message: 'This webpage is using a meta description tag.',
-    text: 'Your AI-powered hub for seamless social media scheduling and content creation. Elevate your digital presence with smart automation and creative tools.',
-    length: 150,
-  },
-  {
-    label: 'Meta Title Test',
-    status: 'warning',
-    message:
-      'Your title or description is too long and may be truncated in search results. Aim for under 60 characters for titles and under 160 characters for descriptions to ensure full visibility.',
-    text: 'Boost your social media management',
-    length: 33,
-  },
-];
-
 
 const staticData = {
   featuresData: [

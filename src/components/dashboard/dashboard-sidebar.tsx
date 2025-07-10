@@ -13,18 +13,28 @@ const DashboardSidebar = () => {
   const storedUserInfo = localStorage.getItem('userInfo');
   const userId = storedUserInfo ? JSON.parse(storedUserInfo).id : null;
 
-
   const handleMenuClick = (heading: string) => {
     setActiveMenu(heading);
   };
 
   const workSpaceListQuery = useQuery({
-    queryKey: ["workspace-list"],
+    queryKey: ['workspace-list'],
     queryFn: async () => {
       const data = await getWorkSpaceList(`?userId=${userId}`);
-      return data
-    }
+      return data;
+    },
   });
+
+  const trimmedWorkSpaces = workSpaceListQuery?.data?.items?.map(
+    (item: { id: string; workspaceName: string; websiteUrl: string }) => {
+      console.log(item);
+      return {
+        id: item.id,
+        workspaceName: item.workspaceName,
+        websiteUrl: item.websiteUrl,
+      };
+    }
+  );
 
   return (
     <div className="w-[270px] h-screen fixed left-0 top-0 bg-[#F8F8F8] flex flex-col justify-between">
@@ -37,7 +47,7 @@ const DashboardSidebar = () => {
           />
         </div>
         <div className="flex flex-col gap-[4px]">
-          <DashboardWorkspaceSwitcher data={workSpaceListQuery?.data?.items} />
+          <DashboardWorkspaceSwitcher data={trimmedWorkSpaces} />
           <div className="flex flex-col gap-[1px]">
             {dashboardMenuItems.map(item => (
               <DashboardMenuItem

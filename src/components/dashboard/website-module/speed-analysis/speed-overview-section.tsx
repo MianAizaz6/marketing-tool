@@ -5,15 +5,13 @@ import DashboardSubHeading from '../../../ui-components/dashboard/dashboard-subh
 import DashboardWebsiteScoreIndicator from '../dashboard-website-score-indicator';
 import { WebsiteSpeedStats } from '../../../../types/website-speed-stats';
 
-
-
 type Props = {
   speedData: WebsiteSpeedStats;
 };
 
 const SpeedOverviewSection: React.FC<Props> = ({ speedData }) => {
-
-  const { performanceScore, accessibilityScore, bestPracticesScore, seoScore  } = (speedData?.ownWebsiteStats ?? {}) as Partial<WebsiteSpeedStats>;
+  const { performanceScore, accessibilityScore, bestPracticesScore, seoScore } =
+    (speedData?.ownWebsiteStats ?? {}) as Partial<WebsiteSpeedStats>;
 
   console.log('===sssss', speedData);
   return (

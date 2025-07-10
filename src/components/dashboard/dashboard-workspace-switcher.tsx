@@ -3,27 +3,17 @@ import { arrowDown } from '../../static-img-url';
 import PricingButton from '../ui-components/dashboard/pricing-button';
 import { getCurrentWorkspace } from '../../utils/utilityFunctions';
 import { Link } from 'react-router-dom';
+import { DashboardWorkspaceSwitcherProps, WorkspaceItem } from '../../utils/interfaces';
 
-
-interface PricingDataProps {
-  data: Record<string, string>[];
-}
-
-interface WorkspaceItem {
-  id: string;
-  workspaceName: string;
-  [key: string]: any;
-}
-
-const DashboardWorkspaceSwitcher: React.FC<PricingDataProps> = ({ data }) => {
-
+const DashboardWorkspaceSwitcher: React.FC<DashboardWorkspaceSwitcherProps> = ({ data }) => {
   const [openWorkspace, setOpenWorkSpace] = useState(false);
-  const [selectedWorkspace, setSelectedWorkspace] = useState<WorkspaceItem | null>(null);
+  const [selectedWorkspace, setSelectedWorkspace] = useState<WorkspaceItem | null>(
+    data?.[0] || null
+  );
 
   const toggleWorkSpace = () => {
     setOpenWorkSpace(!openWorkspace);
-  }
-
+  };
 
   useEffect(() => {
     const storedWorkspace = getCurrentWorkspace();
@@ -42,11 +32,14 @@ const DashboardWorkspaceSwitcher: React.FC<PricingDataProps> = ({ data }) => {
   return (
     <div className="px-[24px] flex gap-[12px] h-[52px] justify-between items-center border-b border-[#E2E8F0] relative">
       <div className="flex gap-[8px] items-center cursor-pointer" onClick={() => toggleWorkSpace()}>
-        <div className="w-[28px] h-[28px] rounded-[6px] flex items-center justify-center bg-gradient-to-b from-[#00C940] to-[#0099FF] text-[8px] text-white">
+        <div className="w-[28px] h-[28px] rounded-[6px] flex items-center justify-center bg-gradient-to-b from-[#00C940] to-[#0099FF] text-[14px] font-bold text-white capitalize">
           {selectedWorkspace?.workspaceName?.charAt(0) || 'PW'}
         </div>
         <div className="flex flex-col justify-between">
-          <h3 className="text-[14px] font-medium line-clamp-1">  {selectedWorkspace?.workspaceName || 'Product Workspace'}</h3>
+          <h3 className="text-[14px] font-medium line-clamp-1">
+            {' '}
+            {selectedWorkspace?.workspaceName || 'Product Workspace'}
+          </h3>
           <p className="text-[#666666] text-[12px] ">Free plan</p>
         </div>
         <img
@@ -65,27 +58,37 @@ const DashboardWorkspaceSwitcher: React.FC<PricingDataProps> = ({ data }) => {
         `}
       >
         {/* Replace this with actual workspace list */}
-        <div> <Link to={'/onboarding'}> <button className='bg-[#fa7240] text-white w-full text-sm cursor-pointer  px-5 py-2 '>+ Create new workspace</button> </Link></div>
+        <div>
+          {' '}
+          <Link to={'/onboarding'}>
+            {' '}
+            <button className="bg-[#fa7240] text-white w-full text-sm cursor-pointer  px-5 py-2 ">
+              + Create new workspace
+            </button>{' '}
+          </Link>
+        </div>
         <div className="p-3 text-sm text-gray-700">
-
-          {
-            data && data.length && data.map((item, index) => {
-
+          {data &&
+            data.length &&
+            data.map((item, index) => {
               const firstChar = item?.workspaceName?.trim()?.charAt(0) || '?';
               const name = item?.workspaceName || 'dsfasdfasdf Workspace';
 
               return (
-                <div key={index} className="flex gap-[8px] items-center mb-2 cursor-pointer" onClick={() => handleWorkspaceSelect(item)}>
-                  <div className="w-[22px] h-[22px] rounded-[6px] flex items-center justify-center bg-gradient-to-b from-[#00C940] to-[#0099FF] text-[14px] text-white">
+                <div
+                  key={index}
+                  className="flex gap-[8px] items-center mb-2 cursor-pointer"
+                  onClick={() => handleWorkspaceSelect(item)}
+                >
+                  <div className="w-[22px] h-[22px] uppercase rounded-[6px] flex items-center justify-center bg-gradient-to-b from-[#00C940] to-[#0099FF] text-[14px] text-white">
                     {firstChar}
                   </div>
-                  <div className="flex flex-col justify-between">
+                  <div className="flex flex-col justify-between capitalize relative">
                     <h3 className="text-gray-700 text-[14px] font-medium line-clamp-1">{name}</h3>
                   </div>
                 </div>
-              )
-            })
-          }
+              );
+            })}
         </div>
       </div>
     </div>
