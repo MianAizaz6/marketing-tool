@@ -68,3 +68,5 @@ export { default as signoutIcon } from './assets/images/signout.png';
 export { default as dashboardLogo } from './assets/images/dashboard-logo.png';
 export { default as downloadIcon } from './assets/images/download.png';
 export { default as emailIcon2 } from './assets/images/email.png';
+export { default as chatbotIcon } from './assets/images/chatbot.png';
+export { default as userBotIcon } from './assets/images/userbot.png';

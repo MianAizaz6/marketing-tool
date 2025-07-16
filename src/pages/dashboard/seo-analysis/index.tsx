@@ -14,10 +14,14 @@ import SeoOverviewSection from '../../../components/dashboard/website-module/seo
 import { getWebsiteSeoReport } from '../../../apis/website-audit';
 import { SEOReport } from '../../../utils/interfaces';
 import SpeedImprovementsSection from '../../../components/dashboard/website-module/speed-analysis/speed-improvments-section';
+import Chatbot from '../../../components/ui-components/chatbot';
+import { useState } from 'react';
+import { useChatbot } from '../../../hooks/useChatbot';
 
 const SeoAnalysis = () => {
   const worksSpaceStoredInfo = localStorage.getItem('selectedWorkspace');
   const worksSpaceId = worksSpaceStoredInfo ? JSON.parse(worksSpaceStoredInfo).id : null;
+  const [toggle, setToggle] = useState(false);
 
   const websiteSeoQuery = useQuery<SEOReport>({
     queryKey: ['seo-analysis'],
@@ -26,6 +30,12 @@ const SeoAnalysis = () => {
       return data;
     },
   });
+
+  const { messages, loading, sendMessage } = useChatbot(
+    'seo',
+    worksSpaceId,
+    websiteSeoQuery?.data?.id
+  );
 
   if (websiteSeoQuery.isLoading) {
     return (
@@ -62,6 +72,7 @@ const SeoAnalysis = () => {
 
   const seoData = websiteSeoQuery.data;
   console.log('websiteSeoQuery', seoData);
+  const isReady = !!(worksSpaceId && seoData?.id);
 
   return (
     <div className="flex flex-col gap-[20px]">
@@ -70,6 +81,11 @@ const SeoAnalysis = () => {
         seoScore={seoData.seoScore}
         websiteUrl={seoData.url}
         key={seoData.id}
+        priorityNumber={{
+          high: seoData.priorities.high.length,
+          medium: seoData.priorities.medium.length,
+          low: seoData.priorities.low.length,
+        }}
       />
       <SeoMetricsSection seoData={seoData} />
       <SeoCommonIssues seoData={seoData} />
@@ -82,6 +98,15 @@ const SeoAnalysis = () => {
       {/* <KeyWordsOptimization /> */}
       {/* <MobileFriendliness /> */}
       {/* <SpeedCompetitorSection /> */}
+      <Chatbot
+        title="SEOGenie"
+        messages={messages}
+        loading={loading}
+        toggle={toggle}
+        handleToggle={() => setToggle(!toggle)}
+        onSendMessage={sendMessage}
+        isReady={isReady}
+      />
     </div>
   );
 };

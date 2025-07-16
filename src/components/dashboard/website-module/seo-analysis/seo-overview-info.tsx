@@ -5,7 +5,12 @@ import { getScoreColorMeta } from '../../../../utils/utilityFunctions';
 
 // Define the props interface for the component
 
-const SeoOverviewInfo: React.FC<seoOverviewSectionProps> = ({ websiteUrl, date, seoScore }) => {
+const SeoOverviewInfo: React.FC<seoOverviewSectionProps> = ({
+  websiteUrl,
+  date,
+  seoScore,
+  priorityNumber,
+}) => {
   const formattedDate = date
     ? new Date(date).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -64,31 +69,33 @@ const SeoOverviewInfo: React.FC<seoOverviewSectionProps> = ({ websiteUrl, date, 
             enhance your website's performance and improve its search engine visibility.
           </p>
 
-          <h3 className="text-[14px] font-semibold text-gray-900 mb-3">Improvements and issues</h3>
+          <h3 className="text-[14px] font-semibold text-gray-900 mb-3">
+            Improvements Suggestions and issues to Fix
+          </h3>
 
           <div className="flex flex-wrap justify-center md:justify-start md:gap-20">
             {/* Failed */}
             <div className="flex items-center space-x-2">
               <span className="w-5 h-5 bg-red-500 rounded-md p-[14px] flex items-center justify-center text-white text-xs font-bold">
-                {'14'}
+                {priorityNumber.high}
               </span>
-              <span className="text-black  text-sm sm:text-base">Failed</span>
+              <span className="text-black  text-sm sm:text-base">High</span>
             </div>
 
             {/* Warnings */}
             <div className="flex items-center space-x-2 ">
               <span className="w-5 h-5 bg-yellow-500 flex p-[14px] rounded-md items-center justify-center text-white text-xs font-bold">
-                {'13'}
+                {priorityNumber.medium}
               </span>
-              <span className="text-black text-sm sm:text-base">Warnings</span>
+              <span className="text-black text-sm sm:text-base">Medium</span>
             </div>
 
             {/* Passed */}
             <div className="flex items-center space-x-2">
               <span className="w-5 h-5 bg-green-500 rounded-md p-[14px] flex items-center justify-center text-white text-xs font-bold">
-                {'56'}
+                {priorityNumber.low}
               </span>
-              <span className="text-black text-sm sm:text-base">Passed</span>
+              <span className="text-black text-sm sm:text-base">Low</span>
             </div>
           </div>
         </div>

@@ -5,11 +5,21 @@ import DashboardCircularGraph from '../../../ui-components/dashboard/dashboard-c
 import DashboardHeading from '../../../ui-components/dashboard/dashboard-heading';
 import SeoOverviewInfo from './seo-overview-info';
 
-const SeoOverviewSection: React.FC<seoOverviewSectionProps> = ({ seoScore, websiteUrl, date }) => {
+const SeoOverviewSection: React.FC<seoOverviewSectionProps> = ({
+  seoScore,
+  websiteUrl,
+  date,
+  priorityNumber,
+}) => {
   return (
     <div className="flex gap-[16px]">
       <DashboardCard className="w-full flex flex-col  gap-[12px]" border={true}>
-        <SeoOverviewInfo websiteUrl={websiteUrl} date={date} seoScore={seoScore} />
+        <SeoOverviewInfo
+          priorityNumber={priorityNumber}
+          websiteUrl={websiteUrl}
+          date={date}
+          seoScore={seoScore}
+        />
       </DashboardCard>
       <DashboardCard className="min-w-[260px] min-h-[210px] flex justify-center" border={true}>
         <div className="flex flex-col justify-center items-center gap-[16px]">

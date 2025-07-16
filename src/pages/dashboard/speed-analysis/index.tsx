@@ -6,12 +6,15 @@ import SpeedMetricsSection from '../../../components/dashboard/website-module/sp
 import SpeedOverviewSection from '../../../components/dashboard/website-module/speed-analysis/speed-overview-section';
 import { useState } from 'react';
 import { generatePDFfromReport } from '../../../utils/utilityFunctions';
+import Chatbot from '../../../components/ui-components/chatbot';
+import { useChatbot } from '../../../hooks/useChatbot';
 
 const SpeedAnalysis = () => {
   const [strategy, setStrategy] = useState('desktop');
 
   const worksSpaceStoredInfo = localStorage.getItem('selectedWorkspace');
   const worksSpaceId = worksSpaceStoredInfo ? JSON.parse(worksSpaceStoredInfo).id : null;
+  const [toggle, setToggle] = useState(false);
 
   console.log('===workspaceId', worksSpaceId);
 
@@ -22,6 +25,12 @@ const SpeedAnalysis = () => {
       return data;
     },
   });
+
+  const { messages, loading, sendMessage } = useChatbot(
+    'page_speed',
+    worksSpaceId,
+    websiteSpeedQuery?.data?.items[0].desktop?.ownWebsiteStats?.id
+  );
 
   if (websiteSpeedQuery.isLoading || !websiteSpeedQuery.data?.items?.length) {
     return (
@@ -44,6 +53,7 @@ const SpeedAnalysis = () => {
   const changeDevice = (device: string) => {
     setStrategy(device);
   };
+
   const improvmentData =
     strategy === 'desktop'
       ? websiteSpeedQuery?.data?.items[0]?.desktop?.ownWebsiteStats?.priorities
@@ -63,6 +73,8 @@ const SpeedAnalysis = () => {
       : strategy === 'mobile'
         ? websiteSpeedQuery?.data?.items[0].mobile
         : undefined;
+
+  const isReady = !!(worksSpaceId && speedData?.ownWebsiteStats?.id);
 
   return (
     <div className="flex flex-col gap-3">
@@ -94,6 +106,15 @@ const SpeedAnalysis = () => {
         websitePerformance={websitePerformance}
         compitatorPerformance={compitatorPerformance}
         speedData={speedData}
+      />
+      <Chatbot
+        title="SpeedBot"
+        messages={messages}
+        loading={loading}
+        toggle={toggle}
+        handleToggle={() => setToggle(!toggle)}
+        onSendMessage={sendMessage}
+        isReady={isReady}
       />
     </div>
   );

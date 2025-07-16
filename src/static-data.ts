@@ -354,4 +354,27 @@ const staticData = {
   ],
 };
 
+export const mockConversation = [
+  {
+    role: 'user',
+    content: 'What is the SEO score of my website?',
+  },
+  {
+    role: 'assistant',
+    content:
+      'Your SEO score is 78. There are a few issues with meta tags and missing ALT attributes on images.',
+  },
+  {
+    role: 'user',
+    content: 'What can I fix first?',
+  },
+  {
+    role: 'assistant',
+    content:
+      'Start by updating your meta title to include the focus keyword, and ensure all images have descriptive ALT tags.',
+  },
+];
+
+export const mockLoading = true;
+
 export default staticData;

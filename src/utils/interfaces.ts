@@ -73,6 +73,11 @@ export interface seoOverviewSectionProps {
   seoScore: number;
   websiteUrl: string;
   date: string;
+  priorityNumber: {
+    high: number;
+    medium: number;
+    low: number;
+  };
 }
 
 export interface MetaTestResult {

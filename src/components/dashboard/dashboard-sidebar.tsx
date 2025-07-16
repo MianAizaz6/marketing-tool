@@ -6,11 +6,15 @@ import DashboardWorkspaceSwitcher from './dashboard-workspace-switcher';
 import DashboardPricingData from './dashboard-pricing-data';
 import { useQuery } from '@tanstack/react-query';
 import { getWorkSpaceList } from '../../apis/onboarding';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const DashboardSidebar = () => {
   const [activeMenu, setActiveMenu] = useState<string>(dashboardMenuItems[0].heading);
 
   const storedUserInfo = localStorage.getItem('userInfo');
+  const navigate = useNavigate();
+
   const userId = storedUserInfo ? JSON.parse(storedUserInfo).id : null;
 
   const handleMenuClick = (heading: string) => {
@@ -20,10 +24,26 @@ const DashboardSidebar = () => {
   const workSpaceListQuery = useQuery({
     queryKey: ['workspace-list'],
     queryFn: async () => {
-      const data = await getWorkSpaceList(`?userId=${userId}`);
-      return data;
+      try {
+        const data = await getWorkSpaceList(`?userId=${userId}`);
+        return data;
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 401) {
+            localStorage.removeItem('accessToken');
+            navigate('/sign-in');
+          }
+        }
+
+        throw error;
+      }
     },
   });
+
+  const handleSignout = () => {
+    localStorage.removeItem('accessToken');
+    navigate('/');
+  };
 
   const trimmedWorkSpaces = workSpaceListQuery?.data?.items?.map(
     (item: { id: string; workspaceName: string; websiteUrl: string }) => {
@@ -69,7 +89,10 @@ const DashboardSidebar = () => {
             <img className="w-[13px] h-[13px]" src={settingsIcon} alt="" />
             <h3 className="text-[#333333] text-[14px] font-medium leading-[14px]">Settings</h3>
           </div>
-          <div className="px-[20px] flex gap-[8px] h-[34px] items-center cursor-pointer">
+          <div
+            className="px-[20px] flex gap-[8px] h-[34px] items-center cursor-pointer"
+            onClick={() => handleSignout()}
+          >
             <img className="w-[13px] h-[13px]" src={signoutIcon} alt="" />
             <h3 className="text-[#333333] text-[14px] font-medium leading-[14px]">Sign out</h3>
           </div>
