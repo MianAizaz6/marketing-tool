@@ -24,7 +24,7 @@ const SeoAnalysis = () => {
   const [toggle, setToggle] = useState(false);
 
   const websiteSeoQuery = useQuery<SEOReport>({
-    queryKey: ['seo-analysis'],
+    queryKey: ['seo-analysis', worksSpaceId],
     queryFn: async () => {
       const data = await getWebsiteSeoReport(`?onboardProcessId=${worksSpaceId}`);
       return data;

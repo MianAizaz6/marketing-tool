@@ -16,7 +16,10 @@ import OnBoardingInfo from './pages/dashboard/onboarding-info';
 import DashboardLayout from './components/dashboard/dashboard-layout';
 import SpeedAnalysis from './pages/dashboard/speed-analysis';
 import SeoAnalysis from './pages/dashboard/seo-analysis';
+import ContentRelevence from './pages/dashboard/content-relevence';
 import WebsiteLayout from './components/dashboard/website-module/website-layout';
+import MobileUsability from './pages/dashboard/mobile-usability';
+import UserInterfaceReport from './pages/dashboard/ui-ux-report';
 
 const queryClient = new QueryClient();
 
@@ -41,6 +44,9 @@ export function App() {
             <Route path="website-audit" element={<WebsiteLayout />}>
               <Route index element={<SeoAnalysis />} />
               <Route path="speed-analysis" element={<SpeedAnalysis />} />
+              <Route path="content-quality" element={<ContentRelevence />} />
+              <Route path="mobile-useability" element={<MobileUsability />} />
+              <Route path="uiux" element={<UserInterfaceReport />} />
             </Route>
           </Route>
 

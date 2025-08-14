@@ -19,7 +19,7 @@ const SpeedAnalysis = () => {
   console.log('===workspaceId', worksSpaceId);
 
   const websiteSpeedQuery = useQuery({
-    queryKey: ['speed-analysis'],
+    queryKey: ['speed-analysis',worksSpaceId],
     queryFn: async () => {
       const data = await getWebsiteSpeedReport(`?onboardProcessId=${worksSpaceId}`);
       return data;
