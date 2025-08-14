@@ -160,8 +160,8 @@ export const websiteModuleBtns = [
     link: '/content-quality',
   },
   {
-    name: 'Backlinks and domain authority',
-    link: '/backlinks',
+    name: 'UI/UX',
+    link: '/uiux',
   },
 ];
 

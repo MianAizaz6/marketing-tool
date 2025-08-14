@@ -47,11 +47,12 @@ const CustomModel: React.FC<CustomModelProps> = ({
               alt="Close Modal"
               className="w-[12px] h-[12px] cursor-pointer"
             />
+            
           </div>
         )}
 
         {/* Content */}
-        <div className="w-full">{children}</div>
+        <div className="w-full h-full">{children}</div>
       </div>
     </div>
   );
