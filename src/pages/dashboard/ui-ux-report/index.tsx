@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { SEOReport } from '../../../utils/interfaces';
 import { getuserInterfaceReport } from '../../../apis/website-audit';
 import VisualUsabilitySection from '../../../components/dashboard/website-module/uiux/ui-ux-sectioni';
+import VisualImprovementReport from '../../../components/dashboard/website-module/speed-analysis/speed-improvments-section';
+import { generatePDFfromReport } from '../../../utils/utilityFunctions';
 
 
 const UserInterfaceReport = () => {
@@ -55,7 +57,21 @@ const UserInterfaceReport = () => {
 
   return (
     <div className="flex flex-col gap-[20px]">
+
+      <div className='flex justify-end gap-5'>
+
+        {userInterfaceQuery?.data?.report && userInterfaceQuery?.data?.report !== '' ? (<button
+          onClick={() => generatePDFfromReport(userInterfaceQuery?.data?.report)}
+          className={` bg-[#FF4400] text-white cursor-pointer  px-5 py-2 rounded-md`}
+        >
+          Download Report
+        </button>) : undefined}
+
+      </div>
+
       <VisualUsabilitySection data={userInterfaceQuery?.data} />
+
+      <VisualImprovementReport suggestionData={userInterfaceQuery?.data?.priorities} />
     </div>
   );
 };
