@@ -114,7 +114,7 @@ export const dashboardMenuItems = [
     heading: 'Website Competitor Analysis',
     activeIcon: competitorIcon,
     icon: competitorIcon,
-    link: '/',
+    link: 'competitor-analysis',
   },
   {
     heading: 'Ad Campaigns Audit',
