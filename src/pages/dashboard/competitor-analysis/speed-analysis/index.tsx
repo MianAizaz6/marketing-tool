@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { getWebsiteSpeedReport } from '../../../apis/website-audit';
-import SpeedCompetitorSection from '../../../components/dashboard/website-module/speed-analysis/speed-competitor-section';
-import SpeedImprovmentsSection from '../../../components/dashboard/website-module/speed-analysis/speed-improvments-section';
-import SpeedMetricsSection from '../../../components/dashboard/website-module/speed-analysis/speed-metrics-section';
-import SpeedOverviewSection from '../../../components/dashboard/website-module/speed-analysis/speed-overview-section';
+import { getWebsiteSpeedReport } from '../../../../apis/website-audit';
+import SpeedCompetitorSection from '../../../../components/dashboard/website-module/speed-analysis/speed-competitor-section';
+import SpeedImprovmentsSection from '../../../../components/dashboard/website-module/speed-analysis/speed-improvments-section';
+import SpeedMetricsSection from '../../../../components/dashboard/website-module/speed-analysis/speed-metrics-section';
+import SpeedOverviewSection from '../../../../components/dashboard/website-module/speed-analysis/speed-overview-section';
 import { useState } from 'react';
-import { generatePDFfromReport } from '../../../utils/utilityFunctions';
-import Chatbot from '../../../components/ui-components/chatbot';
-import { useChatbot } from '../../../hooks/useChatbot';
+import { generatePDFfromReport } from '../../../../utils/utilityFunctions';
+import Chatbot from '../../../../components/ui-components/chatbot';
+import { useChatbot } from '../../../../hooks/useChatbot';
 
-const SpeedAnalysis = () => {
+const CompetitorSpeedAnalysis = () => {
   const [strategy, setStrategy] = useState('desktop');
 
   const worksSpaceStoredInfo = localStorage.getItem('selectedWorkspace');
@@ -120,4 +120,4 @@ const SpeedAnalysis = () => {
   );
 };
 
-export default SpeedAnalysis;
+export default CompetitorSpeedAnalysis;

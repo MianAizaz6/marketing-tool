@@ -20,6 +20,7 @@ import ContentRelevence from './pages/dashboard/content-relevence';
 import WebsiteLayout from './components/dashboard/website-module/website-layout';
 import MobileUsability from './pages/dashboard/mobile-usability';
 import UserInterfaceReport from './pages/dashboard/ui-ux-report';
+import CompetitorSpeedAnalysis from './pages/dashboard/competitor-analysis/speed-analysis';
 
 const queryClient = new QueryClient();
 
@@ -41,13 +42,19 @@ export function App() {
           <Route path="/auth/verify/:token" element={<EmailVerification />} />
           {/* Dashboard Routes */}
           <Route path="dashboard" element={<DashboardLayout />}>
-            <Route path="website-audit" element={<WebsiteLayout />}>
+            <Route path="website-audit" element={<WebsiteLayout basePath="/dashboard/website-audit" />}>
               <Route index element={<SeoAnalysis />} />
               <Route path="speed-analysis" element={<SpeedAnalysis />} />
               <Route path="content-quality" element={<ContentRelevence />} />
               <Route path="mobile-useability" element={<MobileUsability />} />
               <Route path="uiux" element={<UserInterfaceReport />} />
             </Route>
+
+            <Route path="competitor-analysis" element={<WebsiteLayout basePath="/dashboard/competitor-analysis" />}>
+              <Route index element={<SeoAnalysis />} />
+              <Route path="speed-analysis" element={<CompetitorSpeedAnalysis />} />
+            </Route>
+
           </Route>
 
         </Routes>

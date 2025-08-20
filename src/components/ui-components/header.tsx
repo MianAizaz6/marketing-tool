@@ -20,7 +20,7 @@ const Header = () => {
   }
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 shadow-md">
+    <header className="flex justify-between items-center  px-6 py-4 max-w-7xl mx-auto">
       <h1 className="text-2xl font-bold text-[#FF4A4A]">IPSUM</h1>
       <nav className="hidden md:flex gap-6 text-sm">
         {staticData.navItems.map((item, idx) => {

@@ -2,14 +2,17 @@
 import { useNavigate } from 'react-router-dom';
 import { websiteModuleBtns } from '../../../static-data';
 
-const DashboardWebsiteModuleBtns = ({ activePage }: { activePage: string }) => {
+const DashboardWebsiteModuleBtns = ({ activePage, basePath }: { activePage: string, basePath: string }) => {
 
   const navigate = useNavigate();
 
-  const basePath = '/dashboard/website-audit';
+  // const basePath = '/dashboard/website-audit';
 
   const active = () => {
     if (activePage === 'website-audit') {
+      return '/'
+    }
+    else if (activePage === 'competitor-analysis') {
       return '/'
     }
     else {
