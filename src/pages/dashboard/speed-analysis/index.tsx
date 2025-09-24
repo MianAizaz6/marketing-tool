@@ -99,8 +99,9 @@ const SpeedAnalysis = () => {
           Download Report
         </button>
       </div>
+
       <SpeedOverviewSection speedData={speedData} />
-      <SpeedMetricsSection speedData={speedData} />
+      <SpeedMetricsSection speedData={speedData} /> 
       <SpeedImprovmentsSection suggestionData={improvmentData} />
       <SpeedCompetitorSection
         websitePerformance={websitePerformance}

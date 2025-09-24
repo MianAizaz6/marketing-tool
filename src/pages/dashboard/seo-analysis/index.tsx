@@ -82,22 +82,16 @@ const SeoAnalysis = () => {
         websiteUrl={seoData.url}
         key={seoData.id}
         priorityNumber={{
-          high: seoData.priorities.high.length,
-          medium: seoData.priorities.medium.length,
-          low: seoData.priorities.low.length,
+          high: seoData?.priorities?.high?.length,
+          medium: seoData?.priorities?.medium?.length,
+          low: seoData?.priorities?.low?.length,
         }}
+        type='SEO'
       />
       <SeoMetricsSection seoData={seoData} />
       <SeoCommonIssues seoData={seoData} />
       <SpeedImprovementsSection suggestionData={seoData.priorities} />
-      {/* <SpeedImprovmentsSection
-        improvementsSuggestionsData={seoimprovementsData}
-        speedMetricsOptions={seoMetricsOptions}
-        improvementsSuggestionTextData={improvementsSuggestionTextData}
-      />
-      {/* <KeyWordsOptimization /> */}
-      {/* <MobileFriendliness /> */}
-      {/* <SpeedCompetitorSection /> */}
+
       <Chatbot
         title="SEOGenie"
         messages={messages}

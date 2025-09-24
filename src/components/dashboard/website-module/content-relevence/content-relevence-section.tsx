@@ -1,118 +1,156 @@
 import DashboardCard from '../../../ui-components/dashboard/dashboard-card';
+import DashboardCircularGraph from '../../../ui-components/dashboard/dashboard-circular-graph';
 import DashboardHeading from '../../../ui-components/dashboard/dashboard-heading';
 import DashboardMetricsCard from '../../../ui-components/dashboard/dashboard-metrics-card';
+import DashboardSubHeading from '../../../ui-components/dashboard/dashboard-subheading';
 
 interface Props {
-  data: {
-    wordCount: number;
-    updatedAt: string;
-    keywordCoverageScore: number;
-    readabilityScoreOutOf10: number;
-    keywordDensity: number;
-    imageCount: number;
-    keywordInBodyCount: number;
-    keywordInTitle: boolean;
-    keywordInMeta: boolean;
-    keywordInH1: boolean;
-  };
+  data: any; // full content object
 }
 
-const ContentRelevenceSection: React.FC<Props> = ({ data }) => {
+const ContentRelevanceSection: React.FC<Props> = ({ data }) => {
   const overviewMetrics = [
     {
       heading: 'Content Depth',
-      metrics: `${data?.wordCount} WORDS PER PAGE`,
+      metrics: `${data?.wordCount} WORDS`,
       status: data?.wordCount > 1200 ? 'Warning' : 'Passed',
       message: 'Optimal content length is between 850 and 1200 words.'
     },
+    // {
+    //   heading: 'Readability',
+    //   metrics: `Score: ${data?.readabilityScoreOutOf10}/10`,
+    //   status: data?.readabilityScoreOutOf10 >= 7 ? 'Passed' : data?.readabilityScoreOutOf10 >= 4 ? 'Warning' : 'Failed',
+    //   message: 'Higher readability improves user engagement.'
+    // },
     {
-      heading: 'Relevance & Freshness',
-      metrics: `UPDATED ${new Date(data?.updatedAt).toLocaleDateString()}`,
-      status: data?.updatedAt ? 'Passed' : 'Failed',
-      message: 'Recent updates improve search engine relevance.'
+      heading: 'Media Usage',
+      metrics: `${data?.imageCount + data?.videoCount} MEDIA ELEMENTS`,
+      status: data?.mediaScore >= 7 ? 'Passed' : data?.mediaScore >= 4 ? 'Warning' : 'Failed',
+      message: 'Images and videos make content more engaging.'
     },
-    {
-      heading: 'Keyword Optimization',
-      metrics: `${(data?.keywordCoverageScore / 10) * 100}% TARGET MATCH`,
-      status: data?.keywordCoverageScore >= 7 ? 'Passed' : data?.keywordCoverageScore >= 4 ? 'Warning' : 'Failed',
-      message: 'Higher target match means better keyword relevance.'
-    },
-    {
-      heading: 'Readability Score',
-      metrics: `Score: ${data?.readabilityScoreOutOf10}/10`,
-      status: data?.readabilityScoreOutOf10 >= 7 ? 'Passed' : data?.readabilityScoreOutOf10 >= 4 ? 'Warning' : 'Failed',
-      message: 'Higher readability makes content more user-friendly.'
-    }
+    // {
+    //   heading: 'Freshness',
+    //   metrics: `Score: ${data?.freshnessScore}/10`,
+    //   status: data?.freshnessScore >= 7 ? 'Passed' : data?.freshnessScore >= 4 ? 'Warning' : 'Failed',
+    //   message: 'Recently updated content ranks better in search engines.'
+    // },
+
   ];
 
   const seoMetrics = [
     {
-      heading: 'Alt Text & Accessibility',
-      metrics: `${data?.imageCount > 0 ? ((data?.keywordInBodyCount / data?.imageCount) * 100).toFixed(1) : '0'}% OF IMAGES HAVE ALT TEXT`,
-      status: data?.imageCount > 0 && data?.keywordInBodyCount / data?.imageCount >= 0.8 ? 'Passed' : 'Warning',
-      message: 'Alt text helps visually impaired users and improves SEO.'
+      heading: 'Keyword Coverage',
+      metrics: `${data?.keywordCoverageScore * 10}%`,
+      status: data?.keywordCoverageScore >= 7 ? 'Passed' : data?.keywordCoverageScore >= 4 ? 'Warning' : 'Failed',
+      message: 'Higher coverage ensures keywords are present where they matter.'
     },
     {
-      heading: 'Internal Linking',
-      metrics: `${data?.keywordInBodyCount} INTERNAL LINKS FOUND`,
-      status: data?.keywordInBodyCount >= 3 ? 'Passed' : 'Warning',
-      message: 'More internal links improve navigation and crawlability.'
+      heading: 'Keyword Density',
+      metrics: `${data?.keywordDensity}%`,
+      status: data?.keywordDensity >= 2 && data?.keywordDensity <= 3 ? 'Passed' : 'Warning',
+      message: 'Avoid keyword stuffing, maintain optimal density.'
     },
     {
-      heading: 'Keyword Placement in Title',
+      heading: 'Keywords in Body',
+      metrics: `${data?.keywordInBodyCount} OCCURRENCES`,
+      status: data?.keywordInBodyCount > 0 ? 'Passed' : 'Warning',
+      message: 'Include primary keywords in the body text.'
+    },
+    {
+      heading: 'Keyword in Title',
       metrics: data?.keywordInTitle ? 'YES' : 'NO',
       status: data?.keywordInTitle ? 'Passed' : 'Failed',
-      message: 'Having your keyword in the title significantly boosts SEO.'
+      message: 'Title keywords improve ranking.'
     },
     {
-      heading: 'Keyword in Meta Tags',
+      heading: 'Keyword in Meta',
       metrics: data?.keywordInMeta ? 'YES' : 'NO',
       status: data?.keywordInMeta ? 'Passed' : 'Failed',
-      message: 'Keywords in meta descriptions improve click-through rate.'
+      message: 'Meta keywords improve search snippet relevance.'
     },
     {
-      heading: 'Keyword in H1 Tags',
+      heading: 'Keyword in H1',
       metrics: data?.keywordInH1 ? 'YES' : 'NO',
       status: data?.keywordInH1 ? 'Passed' : 'Failed',
       message: 'Primary headings should include target keywords.'
     }
   ];
 
+
+
+  const newLocal = "text-[14px] leading-[20px] font-medium text-[#181D27]";
   return (
-    <div className="p-[16px] border border-[#3232470D] rounded-[8px] bg-white flex flex-col gap-[24px]">
-      <DashboardHeading heading="Content Relevance Metrics" />
-
-      <DashboardCard className="flex flex-col gap-[12px]">
-        <DashboardHeading heading="Website Overview" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[16px]">
-          {overviewMetrics.map((metric, index) => (
+    <div className="p-4 border border-[#3232470D] rounded-lg bg-white flex flex-col gap-6">
+      <DashboardCard className="flex flex-col gap-4">
+        <DashboardHeading heading="Overview" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {overviewMetrics.map((metric, idx) => (
             <DashboardMetricsCard
-              key={index}
+              key={idx}
               heading={metric.heading}
               boldHeading={metric.metrics}
-              status={metric.status as 'Passed' | 'Failed' | 'Warning'}
+              status={metric.status as 'Passed' | 'Warning' | 'Failed'}
+              message={metric.message}
+            />
+          ))}
+
+          <DashboardCard className="min-h-[114px] grow flex flex-col justify-between" border>
+            <DashboardSubHeading subheading="Readability" />
+            <DashboardCircularGraph
+              containerstyles="self-end"
+              heading={`${(data?.readabilityScoreOutOf10 * 10) ?? 0}%`}
+              color="#FFCC00"
+              percentage={data?.readabilityScoreOutOf10 * 10 ?? 0}
+              size="48px"
+              headingStyles={newLocal}
+            />
+          </DashboardCard>
+
+          <DashboardCard className="min-h-[114px] grow flex flex-col justify-between" border>
+            <DashboardSubHeading subheading="Freshness Score" />
+            <DashboardCircularGraph
+              containerstyles="self-end"
+              heading={`${(data?.freshnessScore * 10) ?? 0}%`}
+              color="#FFCC00"
+              percentage={data?.freshnessScore * 10 ?? 0}
+              size="48px"
+              headingStyles={newLocal}
+            />
+          </DashboardCard>
+
+          <DashboardCard className="min-h-[114px] grow flex flex-col justify-between" border>
+            <DashboardSubHeading subheading="Content Relevance" />
+            <DashboardCircularGraph
+              containerstyles="self-end"
+              heading={`${(data?.contentRelevanceScore * 10) ?? 0}%`}
+              color="#FFCC00"
+              percentage={data?.contentRelevanceScore * 10 ?? 0}
+              size="48px"
+              headingStyles={newLocal}
+            />
+          </DashboardCard>
+        </div>
+
+      </DashboardCard>
+
+      {/* SEO Section */}
+      <DashboardCard className="flex flex-col gap-4">
+        <DashboardHeading heading="SEO Signals" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {seoMetrics.map((metric, idx) => (
+            <DashboardMetricsCard
+              key={idx}
+              heading={metric.heading}
+              boldHeading={metric.metrics}
+              status={metric.status as 'Passed' | 'Warning' | 'Failed'}
               message={metric.message}
             />
           ))}
         </div>
       </DashboardCard>
 
-      <DashboardCard className="flex flex-col gap-[12px]">
-        <DashboardHeading heading="SEO Signals & Accessibility" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[16px]">
-          {seoMetrics.map((metric, index) => (
-            <DashboardMetricsCard
-              key={index}
-              heading={metric.heading}
-              boldHeading={metric.metrics}
-              status={metric.status as 'Passed' | 'Failed' | 'Warning'}
-              message={metric.message}
-            />
-          ))}
-        </div>
-      </DashboardCard>
     </div>
   );
 };
 
-export default ContentRelevenceSection;
+export default ContentRelevanceSection;
