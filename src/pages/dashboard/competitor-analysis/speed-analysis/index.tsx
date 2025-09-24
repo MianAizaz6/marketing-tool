@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { getWebsiteSpeedReport } from '../../../../apis/website-audit';
 import SpeedCompetitorSection from '../../../../components/dashboard/website-module/speed-analysis/speed-competitor-section';
 import SpeedImprovmentsSection from '../../../../components/dashboard/website-module/speed-analysis/speed-improvments-section';
 import SpeedMetricsSection from '../../../../components/dashboard/website-module/speed-analysis/speed-metrics-section';
@@ -8,6 +7,7 @@ import { useState } from 'react';
 import { generatePDFfromReport } from '../../../../utils/utilityFunctions';
 import Chatbot from '../../../../components/ui-components/chatbot';
 import { useChatbot } from '../../../../hooks/useChatbot';
+import { competitorWebSpeedReport } from '../../../../apis/competitor-analysis';
 
 const CompetitorSpeedAnalysis = () => {
   const [strategy, setStrategy] = useState('desktop');
@@ -19,20 +19,22 @@ const CompetitorSpeedAnalysis = () => {
   console.log('===workspaceId', worksSpaceId);
 
   const websiteSpeedQuery = useQuery({
-    queryKey: ['speed-analysis', worksSpaceId],
+    queryKey: ['competitor-speed-analysis', worksSpaceId],
     queryFn: async () => {
-      const data = await getWebsiteSpeedReport(`?onboardProcessId=${worksSpaceId}`);
+      const data = await competitorWebSpeedReport(`?onboardProcessId=${worksSpaceId}`);
       return data;
     },
   });
 
-  const { messages, loading, sendMessage } = useChatbot(
-    'page_speed',
-    worksSpaceId,
-    websiteSpeedQuery?.data?.items[0].desktop?.ownWebsiteStats?.id
-  );
+  console.log('====websiteSpeed', websiteSpeedQuery.data);
 
-  if (websiteSpeedQuery.isLoading || !websiteSpeedQuery.data?.items?.length) {
+  // const { messages, loading, sendMessage } = useChatbot(
+  //   'page_speed',
+  //   worksSpaceId,
+  //   websiteSpeedQuery?.data?.items[0].desktop?.ownWebsiteStats?.id
+  // );
+
+  if (websiteSpeedQuery?.isLoading || !websiteSpeedQuery?.data?.items?.length) {
     return (
       <div className="flex items-center justify-center h-screen bg-white">
         <div className="text-center space-y-4">
@@ -48,7 +50,6 @@ const CompetitorSpeedAnalysis = () => {
     );
   }
 
-  console.log('websiteSpeedQuery', websiteSpeedQuery.data);
 
   const changeDevice = (device: string) => {
     setStrategy(device);
@@ -107,7 +108,7 @@ const CompetitorSpeedAnalysis = () => {
         compitatorPerformance={compitatorPerformance}
         speedData={speedData}
       />
-      <Chatbot
+      {/* <Chatbot
         title="SpeedBot"
         messages={messages}
         loading={loading}
@@ -115,7 +116,7 @@ const CompetitorSpeedAnalysis = () => {
         handleToggle={() => setToggle(!toggle)}
         onSendMessage={sendMessage}
         isReady={isReady}
-      />
+      /> */}
     </div>
   );
 };

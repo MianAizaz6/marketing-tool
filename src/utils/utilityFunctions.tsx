@@ -24,93 +24,230 @@ export const getScoreColorMeta = (score: number) => {
   return { label: 'Poor', color: '#FF3B30' };
 };
 
-export const getSeoMetricsArray = (
-  seoData: SEOReport
-): {
+// export const getSeoMetricsArray = (
+//   seoData: SEOReport
+// ): {
+//   label: string;
+//   value: number;
+//   status: 'Passed' | 'Warning' | 'Failed';
+//   message: string;
+// }[] => {
+//   const seoScore = seoData.seoScore;
+//   const wordCount = seoData.wordCount;
+//   const internalLinks = seoData.internalLinksCount;
+//   const externalLinks = seoData.externalLinksCount;
+//   const imagesWithAlt = seoData.imageAltTags?.imagesWithAlt ?? 0;
+//   const imagesMissingAlt = seoData.imageAltTags?.imagesMissingAlt ?? 0;
+
+//   return [
+//     {
+//       label: 'SEO Score',
+//       value: seoScore,
+//       status: seoScore >= 80 ? 'Passed' : seoScore >= 60 ? 'Warning' : 'Failed',
+//       message:
+//         seoScore >= 80
+//           ? 'Excellent SEO performance.'
+//           : seoScore >= 60
+//             ? 'Decent SEO score, but could be improved.'
+//             : 'Poor SEO performance. Needs improvement.',
+//     },
+//     {
+//       label: 'Word Count',
+//       value: wordCount,
+//       status: wordCount >= 500 ? 'Passed' : wordCount >= 300 ? 'Warning' : 'Failed',
+//       message:
+//         wordCount >= 500
+//           ? 'Ideal word count for SEO.'
+//           : wordCount >= 300
+//             ? 'Moderate content length. Consider adding more content.'
+//             : 'Content is too short for SEO effectiveness.',
+//     },
+//     {
+//       label: 'Internal Links',
+//       value: internalLinks,
+//       status: internalLinks >= 30 ? 'Passed' : internalLinks >= 15 ? 'Warning' : 'Failed',
+//       message:
+//         internalLinks >= 30
+//           ? 'Good number of internal links.'
+//           : internalLinks >= 15
+//             ? 'Add more internal links to improve crawlability.'
+//             : 'Too few internal links. Site may lack internal structure.',
+//     },
+//     {
+//       label: 'External Links',
+//       value: externalLinks,
+//       status:
+//         externalLinks >= 5 && externalLinks <= 20
+//           ? 'Passed'
+//           : externalLinks > 0
+//             ? 'Warning'
+//             : 'Failed',
+//       message:
+//         externalLinks >= 5 && externalLinks <= 20
+//           ? 'Balanced external linking.'
+//           : externalLinks > 0
+//             ? 'External links are present but could be optimized.'
+//             : 'No external links found. Consider adding relevant external sources.',
+//     },
+//     {
+//       label: 'Images With ALT',
+//       value: imagesWithAlt,
+//       status: imagesWithAlt > 0 ? 'Passed' : 'Failed',
+//       message:
+//         imagesWithAlt > 0
+//           ? 'Some images have ALT text.'
+//           : 'No images have ALT text. Add ALT attributes for accessibility and SEO.',
+//     },
+//     {
+//       label: 'Images Missing ALT',
+//       value: imagesMissingAlt,
+//       status: imagesMissingAlt === 0 ? 'Passed' : imagesMissingAlt < 5 ? 'Warning' : 'Failed',
+//       message:
+//         imagesMissingAlt === 0
+//           ? 'All images have ALT text.'
+//           : imagesMissingAlt < 5
+//             ? 'Some images are missing ALT text.'
+//             : 'Many images lack ALT text. This hurts accessibility and SEO.',
+//     },
+//   ];
+// };
+
+// ---- Types (adjust to your app) ----
+type ImageAltTags = { totalImages: number; imagesWithAlt: number; imagesMissingAlt: number };
+
+export type SEOReport = {
+  seoScore: number;
+  wordCount: number;
+  internalLinksCount: number;
+  externalLinksCount: number;
+  imageAltTags?: ImageAltTags | null;
+};
+
+type Compared<T> = { ownWebsiteData: T; competitorWebsiteData: T };
+export type SEOReportCompared = {
+  seoScore: Compared<number>;
+  wordCount: Compared<number>;
+  internalLinksCount: Compared<number>;
+  externalLinksCount: Compared<number>;
+  imageAltTags?: Compared<ImageAltTags | null> | null;
+};
+
+type Perspective = "ownWebsiteData" | "competitorWebsiteData";
+
+type Metric = {
   label: string;
   value: number;
-  status: 'Passed' | 'Warning' | 'Failed';
+  status: "Passed" | "Warning" | "Failed";
   message: string;
-}[] => {
-  const seoScore = seoData.seoScore;
-  const wordCount = seoData.wordCount;
-  const internalLinks = seoData.internalLinksCount;
-  const externalLinks = seoData.externalLinksCount;
-  const imagesWithAlt = seoData.imageAltTags?.imagesWithAlt ?? 0;
-  const imagesMissingAlt = seoData.imageAltTags?.imagesMissingAlt ?? 0;
+};
+
+// ---- Helpers ----
+function isComparedSEO(x: any): x is SEOReportCompared {
+  return x && typeof x.seoScore === "object" && x.seoScore !== null && "ownWebsiteData" in x.seoScore;
+}
+
+function pickPerspective(data: SEOReportCompared, p: Perspective): SEOReport {
+  const alt = data.imageAltTags?.[p] ?? null;
+  return {
+    seoScore: data.seoScore?.[p] ?? 0,
+    wordCount: data.wordCount?.[p] ?? 0,
+    internalLinksCount: data.internalLinksCount?.[p] ?? 0,
+    externalLinksCount: data.externalLinksCount?.[p] ?? 0,
+    imageAltTags: alt
+      ? {
+        totalImages: alt.totalImages ?? 0,
+        imagesWithAlt: alt.imagesWithAlt ?? 0,
+        imagesMissingAlt: alt.imagesMissingAlt ?? 0,
+      }
+      : { totalImages: 0, imagesWithAlt: 0, imagesMissingAlt: 0 },
+  };
+}
+
+// ---- Overloads keep the same name and old calls working ----
+export function getSeoMetricsArray(seoData: SEOReport): Metric[];
+export function getSeoMetricsArray(seoData: SEOReportCompared, perspective?: Perspective): Metric[];
+export function getSeoMetricsArray(
+  seoData: SEOReport | SEOReportCompared,
+  perspective: Perspective = "ownWebsiteData"
+): Metric[] {
+  const data: SEOReport = isComparedSEO(seoData) ? pickPerspective(seoData, perspective) : seoData;
+
+  const seoScore = data.seoScore ?? 0;
+  const wordCount = data.wordCount ?? 0;
+  const internalLinks = data.internalLinksCount ?? 0;
+  const externalLinks = data.externalLinksCount ?? 0;
+  const imagesWithAlt = data.imageAltTags?.imagesWithAlt ?? 0;
+  const imagesMissingAlt = data.imageAltTags?.imagesMissingAlt ?? 0;
 
   return [
     {
-      label: 'SEO Score',
+      label: "SEO Score",
       value: seoScore,
-      status: seoScore >= 80 ? 'Passed' : seoScore >= 60 ? 'Warning' : 'Failed',
+      status: seoScore >= 80 ? "Passed" : seoScore >= 60 ? "Warning" : "Failed",
       message:
         seoScore >= 80
-          ? 'Excellent SEO performance.'
+          ? "Excellent SEO performance."
           : seoScore >= 60
-            ? 'Decent SEO score, but could be improved.'
-            : 'Poor SEO performance. Needs improvement.',
+            ? "Decent SEO score, but could be improved."
+            : "Poor SEO performance. Needs improvement.",
     },
     {
-      label: 'Word Count',
+      label: "Word Count",
       value: wordCount,
-      status: wordCount >= 500 ? 'Passed' : wordCount >= 300 ? 'Warning' : 'Failed',
+      status: wordCount >= 500 ? "Passed" : wordCount >= 300 ? "Warning" : "Failed",
       message:
         wordCount >= 500
-          ? 'Ideal word count for SEO.'
+          ? "Ideal word count for SEO."
           : wordCount >= 300
-            ? 'Moderate content length. Consider adding more content.'
-            : 'Content is too short for SEO effectiveness.',
+            ? "Moderate content length. Consider adding more content."
+            : "Content is too short for SEO effectiveness.",
     },
     {
-      label: 'Internal Links',
+      label: "Internal Links",
       value: internalLinks,
-      status: internalLinks >= 30 ? 'Passed' : internalLinks >= 15 ? 'Warning' : 'Failed',
+      status: internalLinks >= 30 ? "Passed" : internalLinks >= 15 ? "Warning" : "Failed",
       message:
         internalLinks >= 30
-          ? 'Good number of internal links.'
+          ? "Good number of internal links."
           : internalLinks >= 15
-            ? 'Add more internal links to improve crawlability.'
-            : 'Too few internal links. Site may lack internal structure.',
+            ? "Add more internal links to improve crawlability."
+            : "Too few internal links. Site may lack internal structure.",
     },
     {
-      label: 'External Links',
+      label: "External Links",
       value: externalLinks,
       status:
-        externalLinks >= 5 && externalLinks <= 20
-          ? 'Passed'
-          : externalLinks > 0
-            ? 'Warning'
-            : 'Failed',
+        externalLinks >= 5 && externalLinks <= 20 ? "Passed" : externalLinks > 0 ? "Warning" : "Failed",
       message:
         externalLinks >= 5 && externalLinks <= 20
-          ? 'Balanced external linking.'
+          ? "Balanced external linking."
           : externalLinks > 0
-            ? 'External links are present but could be optimized.'
-            : 'No external links found. Consider adding relevant external sources.',
+            ? "External links are present but could be optimized."
+            : "No external links found. Consider adding relevant external sources.",
     },
     {
-      label: 'Images With ALT',
+      label: "Images With ALT",
       value: imagesWithAlt,
-      status: imagesWithAlt > 0 ? 'Passed' : 'Failed',
+      status: imagesWithAlt > 0 ? "Passed" : "Failed",
       message:
         imagesWithAlt > 0
-          ? 'Some images have ALT text.'
-          : 'No images have ALT text. Add ALT attributes for accessibility and SEO.',
+          ? "Some images have ALT text."
+          : "No images have ALT text. Add ALT attributes for accessibility and SEO.",
     },
     {
-      label: 'Images Missing ALT',
+      label: "Images Missing ALT",
       value: imagesMissingAlt,
-      status: imagesMissingAlt === 0 ? 'Passed' : imagesMissingAlt < 5 ? 'Warning' : 'Failed',
+      status: imagesMissingAlt === 0 ? "Passed" : imagesMissingAlt < 5 ? "Warning" : "Failed",
       message:
         imagesMissingAlt === 0
-          ? 'All images have ALT text.'
+          ? "All images have ALT text."
           : imagesMissingAlt < 5
-            ? 'Some images are missing ALT text.'
-            : 'Many images lack ALT text. This hurts accessibility and SEO.',
+            ? "Some images are missing ALT text."
+            : "Many images lack ALT text. This hurts accessibility and SEO.",
     },
   ];
-};
+}
+
 
 export const getSeoMetaTestResults = (seoData: SEOReport): MetaTestResult[] => {
   const results: MetaTestResult[] = [];

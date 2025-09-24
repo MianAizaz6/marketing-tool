@@ -69,6 +69,40 @@ export interface SEOReport {
   deletedAt: string | null;
 }
 
+export interface MobileUsabilityReport {
+  id: number;
+  onboardProcessId: number;
+  score: number;
+  missingViewport: boolean;
+  horizontalScroll: {
+    isScrollable: boolean;
+    offendingElements: string[];
+  };
+  isCompetitor: boolean;
+  smallTapTargets: {
+    score: number;
+    flaggedElements: Array<{
+      width: number;
+      height: number;
+      selector: string;
+      textContent: string;
+    }>;
+  };
+  fontSizeReadability: {
+    score: number;
+    affectedElements: string[];
+  };
+  report: string;
+  priorities: {
+    low: string[];
+    medium: string[];
+    high: string[];
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+
 export interface seoOverviewSectionProps {
   seoScore: number;
   websiteUrl: string;
@@ -78,6 +112,7 @@ export interface seoOverviewSectionProps {
     medium: number;
     low: number;
   };
+  type: string
 }
 
 export interface MetaTestResult {

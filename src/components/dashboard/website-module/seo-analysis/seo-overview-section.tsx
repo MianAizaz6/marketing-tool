@@ -10,6 +10,7 @@ const SeoOverviewSection: React.FC<seoOverviewSectionProps> = ({
   websiteUrl,
   date,
   priorityNumber,
+  type
 }) => {
   return (
     <div className="flex gap-[16px]">
@@ -19,6 +20,7 @@ const SeoOverviewSection: React.FC<seoOverviewSectionProps> = ({
           websiteUrl={websiteUrl}
           date={date}
           seoScore={seoScore}
+          type={type}
         />
       </DashboardCard>
       <DashboardCard className="min-w-[260px] min-h-[210px] flex justify-center" border={true}>
@@ -30,7 +32,7 @@ const SeoOverviewSection: React.FC<seoOverviewSectionProps> = ({
             size={'126px'}
             headingStyles="text-[24px] leading-[38px] font-[600] text-[#0F172A]"
           />
-          <DashboardHeading heading="Seo Score" />
+          <DashboardHeading heading={`${type} Score`} />
         </div>
       </DashboardCard>
     </div>

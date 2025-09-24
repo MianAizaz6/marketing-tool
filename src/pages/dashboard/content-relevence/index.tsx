@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 import ContentRelevenceSection from '../../../components/dashboard/website-module/content-relevence/content-relevence-section'
 import CustomModel from '../../../components/ui-components/custom-model'
 import KeywordInput from '../../../components/dashboard/website-module/content-relevence/keywords-input-section';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { handleApiError } from '../../../utils/handleApiError';
-import { contentRelevenceDetails } from '../../../apis/website-audit';
+import { contentRelevenceDetails, getContentRelevenceReport } from '../../../apis/website-audit';
 import SpeedImprovementsSection from '../../../components/dashboard/website-module/speed-analysis/speed-improvments-section';
 import { generatePDFfromReport } from '../../../utils/utilityFunctions';
+import DashboardHeading from '../../../components/ui-components/dashboard/dashboard-heading';
 
 const ContentRelevence = () => {
   const [tagsModal, setTagsModal] = useState(false);
@@ -26,7 +27,18 @@ const ContentRelevence = () => {
     'Keyword Match',
   ];
 
-  const workspaceData = JSON.parse(localStorage.getItem('selectedWorkspace'));
+  const workSpace = localStorage.getItem('selectedWorkspace');
+  const workspaceData = workSpace ? JSON.parse(workSpace) : null;
+
+
+  const contentRelevenceQuery = useQuery({
+    queryKey: ['content-relevence', workspaceData?.id],
+    queryFn: async () => {
+      const data = await getContentRelevenceReport(`?onboardProcessId=${workspaceData?.id}`);
+      return data;
+    },
+  });
+
 
   const contentRelevenceMutation = useMutation({
     mutationFn: contentRelevenceDetails,
@@ -42,12 +54,19 @@ const ContentRelevence = () => {
 
 
   useEffect(() => {
-    if (contentRelevenceMutation?.isSuccess) {
-      setContentRelevenceStats(contentRelevenceMutation?.data);
+    if (contentRelevenceMutation.isSuccess) {
+      setContentRelevenceStats(contentRelevenceMutation.data);
+    } else if (contentRelevenceQuery.isSuccess) {
+      setContentRelevenceStats(contentRelevenceQuery.data);
     }
-  }, [contentRelevenceMutation])
+  }, [
+    contentRelevenceMutation.isSuccess,
+    contentRelevenceMutation.data,
+    contentRelevenceQuery.isSuccess,
+    contentRelevenceQuery.data
+  ])
 
-  console.log('------', contentRelevenceStats);
+  console.log('------0000', contentRelevenceQuery?.isSuccess);
 
   const addKeyword = (keyword: string) => {
     const trimmed = keyword.trim();
@@ -80,6 +99,7 @@ const ContentRelevence = () => {
     contentRelevenceMutation.mutate({
       keywords: keywords,
       websiteUrl: workspaceData.websiteUrl,
+      onboardProcessId: workspaceData.id
     });
   };
 
@@ -89,26 +109,28 @@ const ContentRelevence = () => {
 
   return (
     <div className='flex flex-col gap-6'>
-      <div className='flex justify-end gap-5'>
+      <div className='flex justify-between items-center'>
+        <DashboardHeading heading="Content Relevance Metrics" />
+        <div className='flex justify-end gap-5'>
+          {contentRelevenceStats?.report && contentRelevenceStats?.report !== '' ? (<button
+            onClick={() => generatePDFfromReport(contentRelevenceStats?.report)}
+            className={` bg-[#FF4400] text-white cursor-pointer  px-5 py-2 rounded-md`}
+          >
+            Download Report
+          </button>) : undefined}
 
-        {contentRelevenceMutation?.data?.report && contentRelevenceMutation?.data?.report !== '' ? (<button
-          onClick={() => generatePDFfromReport(contentRelevenceMutation?.data?.report)}
-          className={` bg-[#FF4400] text-white cursor-pointer  px-5 py-2 rounded-md`}
-        >
-          Download Report
-        </button>) : undefined}
-
-        <button
-          onClick={() => toggleTagsModal()}
-          className={` bg-[#FF4400] text-white cursor-pointer  px-5 py-2 rounded-md`}
-        >
-          Add Keywords for content
-        </button>
+          <button
+            onClick={() => toggleTagsModal()}
+            className={` bg-[#FF4400] text-white cursor-pointer  px-5 py-2 rounded-md`}
+          >
+            Add Keywords for content
+          </button>
+        </div>
       </div>
-      <ContentRelevenceSection data={contentRelevenceMutation?.data} />
 
-
-      <SpeedImprovementsSection suggestionData={contentRelevenceMutation?.data?.priorities} />
+      <ContentRelevenceSection data={contentRelevenceStats} />
+      
+      <SpeedImprovementsSection suggestionData={contentRelevenceStats?.priorities} />
 
 
       <CustomModel heading={''} open={tagsModal} header={false} toggle={toggleTagsModal} height={'h-[400px]'} width={'w-[500px]'}>

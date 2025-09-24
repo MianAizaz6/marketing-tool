@@ -21,6 +21,9 @@ import WebsiteLayout from './components/dashboard/website-module/website-layout'
 import MobileUsability from './pages/dashboard/mobile-usability';
 import UserInterfaceReport from './pages/dashboard/ui-ux-report';
 import CompetitorSpeedAnalysis from './pages/dashboard/competitor-analysis/speed-analysis';
+import CompetitorSeoAnalysis from './pages/dashboard/competitor-analysis/seo-analysis';
+
+
 
 const queryClient = new QueryClient();
 
@@ -49,12 +52,10 @@ export function App() {
               <Route path="mobile-useability" element={<MobileUsability />} />
               <Route path="uiux" element={<UserInterfaceReport />} />
             </Route>
-
             <Route path="competitor-analysis" element={<WebsiteLayout basePath="/dashboard/competitor-analysis" />}>
-              <Route index element={<SeoAnalysis />} />
+              <Route index element={<CompetitorSeoAnalysis />} />
               <Route path="speed-analysis" element={<CompetitorSpeedAnalysis />} />
             </Route>
-
           </Route>
 
         </Routes>
