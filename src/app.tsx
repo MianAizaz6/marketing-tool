@@ -53,7 +53,7 @@ export function App() {
               <Route path="speed-analysis" element={<SpeedAnalysis />} />
               <Route path="content-quality" element={<ContentRelevence />} />
               <Route path="mobile-useability" element={<MobileUsability />} />
-              <Route path="uiux" element={<UserInterfaceReport />} />
+              <Route path="ui-ux" element={<UserInterfaceReport />} />
             </Route>
             <Route
               path="competitor-analysis"
