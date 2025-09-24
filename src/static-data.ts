@@ -23,6 +23,23 @@ import {
   youtube,
 } from './static-img-url';
 import { ImprovmentSuggestionTextProps, metricsComparisonDataProps } from './utils/interfaces';
+import {
+  MousePointer,
+  Users,
+  ShoppingCart,
+  Eye,
+  Package,
+  Handshake,
+  Tag,
+  UserCheck,
+  BookOpen,
+  CalendarDays,
+  Megaphone,
+  Briefcase,
+  Smile,
+  Zap,
+  Sparkles,
+} from 'lucide-react';
 
 // types/staticData.ts
 export interface Feature {
@@ -117,28 +134,10 @@ export const dashboardMenuItems = [
     link: 'competitor-analysis',
   },
   {
-    heading: 'Ad Campaigns Audit',
+    heading: 'Ads Manager',
     activeIcon: adsIcon,
     icon: adsIcon,
-    link: '/',
-  },
-  {
-    heading: 'Ads Competitor Analysis',
-    activeIcon: competitorIcon,
-    icon: competitorIcon,
-    link: '/',
-  },
-  {
-    heading: 'Website Recommendations',
-    activeIcon: auditActiveIcon,
-    icon: auditIcon,
-    link: '/',
-  },
-  {
-    heading: 'Ads Recommendations',
-    activeIcon: auditActiveIcon,
-    icon: auditIcon,
-    link: '/',
+    link: 'ads-manager',
   },
 ];
 
@@ -152,16 +151,16 @@ export const websiteModuleBtns = [
     link: '/speed-analysis',
   },
   {
-    name: 'Mobile Useability',
-    link: '/mobile-useability',
+    name: 'UIUX',
+    link: '/ui-ux',
   },
   {
     name: 'Content Quality and relevance',
     link: '/content-quality',
   },
   {
-    name: 'UI/UX',
-    link: '/uiux',
+    name: 'Mobile Useability',
+    link: '/mobile-useability',
   },
 ];
 
@@ -373,6 +372,210 @@ export const mockConversation = [
     content:
       'Start by updating your meta title to include the focus keyword, and ensure all images have descriptive ALT tags.',
   },
+];
+
+export const businessCategories = [
+  'E-commerce & Retail',
+  'Technology & Software',
+  'Healthcare & Medical',
+  'Food & Beverage',
+  'Real Estate',
+  'Education & Training',
+  'Professional Services',
+  'Entertainment & Media',
+  'Travel & Tourism',
+  'Automotive',
+  'Fashion & Beauty',
+  'Sports & Fitness',
+  'Finance & Banking',
+  'Logistics & Transportation',
+  'Nonprofit & NGO',
+  'Agriculture',
+  'Energy & Utilities',
+  'Marketing & Advertising',
+  'Hospitality & Events',
+];
+
+export const stepsHeadings = [
+  'Tell us about your Business',
+  'What are you promoting?',
+  "What's your main goal?",
+  'Who do you want to reach?',
+  'Choose Your Ideal Customers',
+  'How should your ad sound?',
+  'How much do you want to spend, and for how long?',
+  'Create your ad content',
+  'Review & Publish',
+];
+
+export const promotionOptions = [
+  {
+    value: 'product',
+    label: 'Product',
+    icon: Package, // lucide-react
+  },
+  {
+    value: 'service',
+    label: 'Service',
+    icon: Handshake,
+  },
+  {
+    value: 'discount',
+    label: 'Discount / Special Offer',
+    icon: Tag,
+  },
+  {
+    value: 'free_consultation',
+    label: 'Free Consultation',
+    icon: UserCheck,
+  },
+  {
+    value: 'free_resource',
+    label: 'Free Resource',
+    icon: BookOpen,
+  },
+  {
+    value: 'event',
+    label: 'Event / Webinar',
+    icon: CalendarDays,
+  },
+  {
+    value: 'other',
+    label: 'Other',
+    icon: Megaphone,
+  },
+];
+
+export const adObjectives = [
+  {
+    id: 1,
+    title: 'Get More Website Visitors',
+    description: 'Drive quality traffic to your website and increase page views',
+    icon: MousePointer,
+  },
+  {
+    id: 2,
+    title: 'Generate Leads',
+    description: 'Collect contact information from potential customers',
+    icon: Users,
+  },
+  {
+    id: 3,
+    title: 'Increase Sales',
+    description: 'Drive purchases and boost your revenue',
+    icon: ShoppingCart,
+  },
+  {
+    id: 4,
+    title: 'Brand Awareness',
+    description: 'Increase visibility and recognition of your brand',
+    icon: Eye,
+  },
+];
+
+export const perosnaOptions = [
+  {
+    personaId: 'p1',
+    name: 'Startup Founders',
+    description: 'Entrepreneurs launching new businesses',
+    ageRange: [25, 40],
+    gender: 'any',
+    location: 'United Kingdom',
+    interests: ['Entrepreneurship', 'Startups', 'Business Coaching', 'Tech Tools'],
+    reasoning: 'Likely to need professional websites to establish credibility.',
+    selected: true,
+  },
+  {
+    personaId: 'p2',
+    name: 'Local Shop Owners',
+    description: 'Owners of brick-and-mortar retail shops',
+    ageRange: [30, 55],
+    gender: 'any',
+    location: 'London & Midlands',
+    interests: ['Small Business', 'Retail Management', 'Local Advertising'],
+    reasoning: 'They want affordable websites to attract local customers.',
+    selected: false,
+  },
+  {
+    personaId: 'p3',
+    name: 'Freelancers & Consultants',
+    description: 'Independent professionals offering services online',
+    ageRange: [22, 45],
+    gender: 'any',
+    location: 'United Kingdom',
+    interests: ['Personal Branding', 'Online Marketing', 'Networking', 'LinkedIn'],
+    reasoning:
+      'They need personal websites to showcase expertise, attract clients, and build credibility.',
+    selected: false,
+  },
+];
+
+export type AdVoice = 'professional' | 'casual' | 'bold' | 'inspiring' | 'custom';
+export interface AdVoiceOptionsType {
+  id: AdVoice;
+  title: string;
+  description: string;
+  example: string;
+  icon: React.ElementType;
+}
+
+export const AdVoiceOptions: AdVoiceOptionsType[] = [
+  {
+    id: 'professional',
+    title: 'Professional',
+    description: 'Formal, trustworthy, expert tone.',
+    example: 'Enhance your business growth with a sleek, high-converting website.',
+    icon: Briefcase,
+  },
+  {
+    id: 'casual',
+    title: 'Casual / Friendly',
+    description: 'Approachable, conversational tone.',
+    example: 'Ready to take your business online? Let’s build something awesome together!',
+    icon: Smile,
+  },
+  {
+    id: 'bold',
+    title: 'Bold / Persuasive',
+    description: 'High-energy, urgency-driven copy.',
+    example: 'Don’t lose clients to outdated websites — upgrade today and watch your sales grow.',
+    icon: Zap,
+  },
+  {
+    id: 'inspiring',
+    title: 'Inspiring / Visionary',
+    description: 'Motivational, future-focused tone.',
+    example:
+      'Your business has unlimited potential — let’s create the digital presence it deserves.',
+    icon: Sparkles,
+  },
+];
+
+export type AIRecommendationType = {
+  type: 'daily' | 'lifetime';
+  budget: number;
+  duration: number; // days
+};
+
+export const aiRecommendationData: AIRecommendationType = {
+  type: 'daily',
+  budget: 25,
+  duration: 7,
+};
+
+export const callToActionOptions = [
+  'Learn More',
+  'Shop Now',
+  'Get Started',
+  'Sign Up',
+  'Book Now',
+  'Contact Us',
+  'Get a Quote',
+  'Order Now',
+  'Request a Quote',
+  'Subscribe Now',
+  'Apply Now',
+  'Download Now',
 ];
 
 export const mockLoading = true;

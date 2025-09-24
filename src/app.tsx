@@ -22,8 +22,8 @@ import MobileUsability from './pages/dashboard/mobile-usability';
 import UserInterfaceReport from './pages/dashboard/ui-ux-report';
 import CompetitorSpeedAnalysis from './pages/dashboard/competitor-analysis/speed-analysis';
 import CompetitorSeoAnalysis from './pages/dashboard/competitor-analysis/seo-analysis';
-
-
+import AdsManager from './pages/dashboard/ads-manager';
+import CreateAdFlow from './pages/dashboard/ads-manager/create-ad';
 
 const queryClient = new QueryClient();
 
@@ -45,19 +45,27 @@ export function App() {
           <Route path="/auth/verify/:token" element={<EmailVerification />} />
           {/* Dashboard Routes */}
           <Route path="dashboard" element={<DashboardLayout />}>
-            <Route path="website-audit" element={<WebsiteLayout basePath="/dashboard/website-audit" />}>
+            <Route
+              path="website-audit"
+              element={<WebsiteLayout basePath="/dashboard/website-audit" />}
+            >
               <Route index element={<SeoAnalysis />} />
               <Route path="speed-analysis" element={<SpeedAnalysis />} />
               <Route path="content-quality" element={<ContentRelevence />} />
               <Route path="mobile-useability" element={<MobileUsability />} />
               <Route path="uiux" element={<UserInterfaceReport />} />
             </Route>
-            <Route path="competitor-analysis" element={<WebsiteLayout basePath="/dashboard/competitor-analysis" />}>
+            <Route
+              path="competitor-analysis"
+              element={<WebsiteLayout basePath="/dashboard/competitor-analysis" />}
+            >
               <Route index element={<CompetitorSeoAnalysis />} />
               <Route path="speed-analysis" element={<CompetitorSpeedAnalysis />} />
             </Route>
+            <Route path="ads-manager" element={<AdsManager />}>
+              <Route path="create-ad" element={<CreateAdFlow />} />
+            </Route>
           </Route>
-
         </Routes>
       </Router>
       <Toaster position="bottom-right" reverseOrder={false} />
